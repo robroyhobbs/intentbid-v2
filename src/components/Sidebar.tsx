@@ -1,13 +1,16 @@
 import { Link, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, 
-  FileText,
-  LineChart,
+  BookOpen,
+  Globe,
   Library,
+  Settings,
   HelpCircle,
   LogOut,
   Target,
-  Plus
+  Plus,
+  Zap,
+  CheckCircle2
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -16,26 +19,29 @@ export function Sidebar() {
 
   const navItems = [
     { name: "Dashboard", href: "/proposals", icon: LayoutDashboard },
-    { name: "My Bids", href: "/my-bids", icon: FileText },
-    { name: "Intelligence", href: "/intelligence", icon: LineChart },
+    { name: "Business Profile", href: "/business-profile", icon: BookOpen },
+    { name: "Intelligence", href: "/intelligence", icon: Globe },
     { name: "FOIA", href: "/foia", icon: Library },
+    { name: "Settings", href: "/settings", icon: Settings },
   ];
 
   const bottomItems = [
-    { name: "Help Center", href: "/help", icon: HelpCircle },
-    { name: "Log Out", href: "/logout", icon: LogOut },
+    { name: "What's New", href: "/whats-new", icon: Zap },
+    { name: "System Ready", href: "/status", icon: CheckCircle2 },
   ];
 
   return (
     <div className="flex flex-col w-64 border-r border-white/5 bg-[#0A0A0A] transition-all duration-300 relative z-20">
       <div className="flex flex-col p-6 border-b border-white/5">
-        <div className="flex items-center gap-3 mb-8">
-          <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-[#8b5cf6] to-[#6d28d9] flex items-center justify-center text-white shadow-[0_0_20px_rgba(139,92,246,0.4)]">
-            <Target size={22} strokeWidth={2.5} />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-xl font-display font-bold tracking-tight text-white">IntentBid</span>
-            <span className="text-[10px] font-bold tracking-widest text-[#8b5cf6] uppercase">Intelligence</span>
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-[#8b5cf6] to-[#6d28d9] flex items-center justify-center text-white shadow-[0_0_20px_rgba(139,92,246,0.4)]">
+              <Target size={22} strokeWidth={2.5} />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-xl font-display font-bold tracking-tight text-white">IntentBid</span>
+              <span className="text-[10px] font-bold tracking-widest text-[#8b5cf6] uppercase">Intelligence</span>
+            </div>
           </div>
         </div>
         

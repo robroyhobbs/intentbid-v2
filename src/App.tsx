@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { ProposalsList } from './pages/ProposalsList';
 import { ProposalWizard } from './pages/ProposalWizard';
-import { KnowledgeBase } from './pages/KnowledgeBase';
+import { BusinessProfile } from './pages/BusinessProfile';
 import { FOIAEngine } from './pages/FOIAEngine';
 import ProposalWorkspace from './pages/ProposalWorkspace';
 
@@ -18,7 +18,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<ProposalsList />} />
           <Route path="proposals" element={<ProposalsList />} />
-          <Route path="knowledge" element={<KnowledgeBase />} />
+          <Route path="business-profile" element={<BusinessProfile />} />
           <Route path="foia" element={<FOIAEngine />} />
           <Route path="settings" element={<div className="p-8">Settings Page (Coming Soon)</div>} />
         </Route>

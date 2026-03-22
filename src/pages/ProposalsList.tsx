@@ -32,7 +32,7 @@ export function ProposalsList() {
           { label: 'Win Rate (YTD)', value: '68%', trend: '+4% vs last year', icon: ArrowUpRight, color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
           { label: 'Pipeline Value', value: '$42.8M', trend: '+$12M this quarter', icon: CheckCircle2, color: 'text-[#c084fc]', bg: 'bg-[#c084fc]/10' },
         ].map((metric) => (
-          <div key={metric.label} className="p-6 rounded-2xl border border-white/5 bg-[#0A0A0A] shadow-lg relative overflow-hidden group">
+          <div key={metric.label} className="p-6 rounded-2xl border border-white/5 hover:border-white/10 transition-colors bg-[#0A0A0A] shadow-lg relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-40 transition-opacity group-hover:scale-110 duration-500">
               <metric.icon className={`w-16 h-16 ${metric.color}`} />
             </div>

@@ -235,7 +235,7 @@ export default function ProposalWorkspace() {
                           </button>
                           <button 
                             onClick={() => setShowSuggestion(false)}
-                            className="px-3 py-1.5 rounded-md text-xs font-medium bg-electric text-white hover:bg-electric-light transition-colors flex items-center gap-1.5"
+                            className="px-3 py-1.5 rounded-md text-xs font-medium bg-white text-black hover:bg-gray-100 transition-colors flex items-center gap-1.5"
                           >
                             <Check className="w-3.5 h-3.5" /> Accept Change
                           </button>
