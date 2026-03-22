@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { 
   Building2, ShieldCheck, Briefcase, Award, Users, FileText, Database,
   ChevronRight, CheckCircle2, Search, UploadCloud, Filter, Plus, FileUp,
-  Target, LineChart, Edit2, Trash2, X, Library, MapPin, Landmark, Clock, Globe
+  Target, LineChart, Edit2, Trash2, X, Library, MapPin, Landmark, Clock, Globe,
+  Palette, Type, Image as ImageIcon, Star, Settings2
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -478,150 +479,284 @@ function CompanyTruthsTab() {
 }
 
 function BrandAssetsTab() {
-  const [isExtracting, setIsExtracting] = useState(false);
-  const [isExtracted, setIsExtracted] = useState(false);
+  const [viewState, setViewState] = useState<'input' | 'processing' | 'managed'>('input');
   const [url, setUrl] = useState('');
+
+  // Editable state for the management prototype
+  const [colors, setColors] = useState([
+    { id: 'primary', label: 'Primary Brand Color', hex: '#0f172a' },
+    { id: 'accent', label: 'Accent Color', hex: '#3b82f6' },
+  ]);
+  
+  const [fonts, setFonts] = useState([
+    { id: 'headings', label: 'Headings Font', value: 'Manrope' },
+    { id: 'body', label: 'Body Text Font', value: 'Inter Regular' },
+  ]);
+
+  const [templates, setTemplates] = useState([
+    { id: '1', name: 'Apex_Standard_Proposal_v3.dotx', isDefault: true },
+  ]);
 
   const handleExtract = () => {
     if (!url) return;
-    setIsExtracting(true);
+    setViewState('processing');
     setTimeout(() => {
-      setIsExtracting(false);
-      setIsExtracted(true);
+      setViewState('managed');
     }, 2500);
+  };
+
+  const handleUpdateColor = (id: string, newHex: string) => {
+    setColors(colors.map(c => c.id === id ? { ...c, hex: newHex } : c));
+  };
+
+  const handleUpdateFont = (id: string, newValue: string) => {
+    setFonts(fonts.map(f => f.id === id ? { ...f, value: newValue } : f));
+  };
+
+  const setAsDefaultTemplate = (id: string) => {
+    setTemplates(templates.map(t => ({ ...t, isDefault: t.id === id })));
+  };
+
+  const removeTemplate = (id: string) => {
+    setTemplates(templates.filter(t => t.id !== id));
   };
 
   return (
     <div className="space-y-8 max-w-5xl mx-auto">
-      <div className="text-center mb-8">
-        <div className="w-16 h-16 rounded-2xl bg-[#c084fc]/10 border border-[#c084fc]/20 flex items-center justify-center mx-auto mb-6">
-          <Target size={32} className="text-[#c084fc]" />
-        </div>
-        <h2 className="text-2xl font-display font-bold text-white mb-2">Brand & Export Assets</h2>
-        <p className="text-foreground-muted max-w-2xl mx-auto">
-          Upload your corporate templates or let our AI extract your brand identity directly from your website. 
-          These assets are used exclusively by the export engine to format your final proposals.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* AI Extraction Tool */}
-        <div className="p-6 rounded-2xl border border-white/5 bg-[#0A0A0A] flex flex-col">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-[#8b5cf6]/10 flex items-center justify-center">
-              <Globe size={20} className="text-[#c084fc]" />
+      {viewState === 'input' && (
+        <div className="animate-in fade-in duration-500">
+          <div className="text-center mb-8">
+            <div className="w-16 h-16 rounded-2xl bg-[#c084fc]/10 border border-[#c084fc]/20 flex items-center justify-center mx-auto mb-6">
+              <Palette size={32} className="text-[#c084fc]" />
             </div>
-            <div>
-              <h3 className="text-lg font-bold text-white">AI Brand Extraction</h3>
-              <p className="text-xs text-foreground-muted">Pull colors, fonts, and logos from a URL</p>
+            <h2 className="text-2xl font-display font-bold text-white mb-2">Brand & Export Assets</h2>
+            <p className="text-foreground-muted max-w-2xl mx-auto">
+              Add your website URL, media kit, or upload corporate templates. Our AI will automatically extract and store your brand identity for use in all exported proposals.
+            </p>
+          </div>
+
+          <div className="border-2 border-dashed border-white/10 bg-[#0A0A0A] rounded-2xl p-10 flex flex-col items-center justify-center text-center hover:border-[#8b5cf6]/50 transition-colors group shadow-inner relative overflow-hidden">
+            {/* Background decoration */}
+            <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
+              <Globe size={120} className="text-[#c084fc]" />
+            </div>
+
+            <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-white/10 relative z-10">
+              <UploadCloud size={32} className="text-foreground-muted group-hover:text-[#c084fc] transition-colors" />
+            </div>
+            <h3 className="text-lg font-bold text-white mb-2 relative z-10">Upload Brand Assets or Templates</h3>
+            <p className="text-sm text-foreground-muted mb-8 max-w-md relative z-10">
+              Drag and drop your media kit (PDF), logos (PNG/SVG), or document templates (.docx, .dotx) here.
+            </p>
+
+            <div className="flex items-center gap-4 w-full max-w-md relative z-10">
+              <div className="h-px bg-white/10 flex-1"></div>
+              <span className="text-xs font-bold uppercase tracking-widest text-foreground-muted">OR</span>
+              <div className="h-px bg-white/10 flex-1"></div>
+            </div>
+
+            <div className="w-full max-w-md mt-8 relative z-10">
+              <label className="block text-xs font-bold uppercase tracking-widest text-foreground-muted mb-2 text-left">Auto-Extract from URL</label>
+              <div className="flex items-center gap-2 bg-[#111116] border border-white/10 rounded-xl p-1.5 focus-within:border-[#8b5cf6] focus-within:ring-1 focus-within:ring-[#8b5cf6] transition-all shadow-lg">
+                <Globe size={18} className="text-foreground-muted ml-3" />
+                <input 
+                  type="url" 
+                  placeholder="e.g. https://yourcompany.com or media kit link" 
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  className="flex-1 bg-transparent border-none text-white text-sm px-2 py-2 outline-none placeholder:text-foreground-subtle"
+                />
+                <button 
+                  onClick={handleExtract}
+                  disabled={!url}
+                  className="bg-white text-black hover:bg-gray-100 font-bold px-5 py-2 rounded-lg text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                >
+                  Extract
+                </button>
+              </div>
             </div>
           </div>
-          
-          <div className="mt-auto space-y-4">
-            <div className="flex items-center gap-2 bg-[#111116] border border-white/10 rounded-xl p-1.5 focus-within:border-[#8b5cf6] focus-within:ring-1 focus-within:ring-[#8b5cf6] transition-all">
-              <input 
-                type="url" 
-                placeholder="https://yourcompany.com" 
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                className="flex-1 bg-transparent border-none text-white text-sm px-3 py-2 outline-none"
-              />
+        </div>
+      )}
+
+      {viewState === 'processing' && (
+        <div className="py-24 flex flex-col items-center justify-center text-center animate-in fade-in duration-300">
+          <div className="w-20 h-20 relative mb-8">
+            <div className="absolute inset-0 border-4 border-[#111116] rounded-full"></div>
+            <div className="absolute inset-0 border-4 border-[#8b5cf6] rounded-full border-t-transparent animate-spin"></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Palette size={24} className="text-[#c084fc] animate-pulse" />
+            </div>
+          </div>
+          <h3 className="text-xl font-display font-bold text-white mb-2">Analyzing Brand Assets...</h3>
+          <p className="text-foreground-muted max-w-md">
+            Scanning {url} for color palettes, typography, logos, and brand guidelines.
+          </p>
+        </div>
+      )}
+
+      {viewState === 'managed' && (
+        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-8">
+          {/* Management Header */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#0A0A0A] border border-white/5 rounded-2xl p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
+                <CheckCircle2 size={24} className="text-emerald-400" />
+              </div>
+              <div>
+                <h2 className="text-lg font-display font-bold text-white">Active Brand Profile</h2>
+                <p className="text-sm text-foreground-muted">Assets extracted from {url}</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
               <button 
-                onClick={handleExtract}
-                disabled={!url || isExtracting}
-                className="bg-white text-black hover:bg-gray-100 font-bold px-4 py-2 rounded-lg text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                onClick={() => setViewState('input')}
+                className="px-4 py-2 rounded-xl border border-white/10 bg-[#111116] text-sm font-medium text-white hover:bg-white/5 transition-colors"
               >
-                {isExtracting ? (
-                  <><div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" /> Extracting...</>
-                ) : (
-                  <>Extract</>
-                )}
+                Add More Assets
+              </button>
+              <button className="px-4 py-2 rounded-xl bg-white text-black text-sm font-bold hover:bg-gray-100 transition-colors shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                Save Changes
               </button>
             </div>
           </div>
-        </div>
 
-        {/* Template Upload */}
-        <div className="p-6 rounded-2xl border border-white/5 bg-[#0A0A0A] flex flex-col">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
-              <FileUp size={20} className="text-blue-400" />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-white">Document Templates</h3>
-              <p className="text-xs text-foreground-muted">Upload branded .docx or .dotx files</p>
-            </div>
-          </div>
-          
-          <div className="mt-auto">
-            <button className="w-full border-2 border-dashed border-white/10 hover:border-blue-500/50 hover:bg-blue-500/5 bg-[#111116] rounded-xl p-4 flex flex-col items-center justify-center text-center transition-colors group">
-              <UploadCloud size={24} className="text-foreground-muted group-hover:text-blue-400 mb-2 transition-colors" />
-              <span className="text-sm font-medium text-white">Upload Template</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Extracted Assets Display */}
-      <div className={cn(
-        "transition-all duration-500 overflow-hidden",
-        isExtracted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none h-0"
-      )}>
-        <h3 className="text-sm font-bold uppercase tracking-widest text-foreground-muted mb-4 flex items-center gap-2">
-          <CheckCircle2 size={16} className="text-emerald-400" /> Extracted Brand Tokens
-        </h3>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Colors */}
-          <div className="p-5 rounded-xl border border-white/5 bg-[#0A0A0A]">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-foreground-muted mb-4">Color Palette</h4>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-[#0f172a] border border-white/10 shadow-inner"></div>
-                <div>
-                  <p className="text-sm font-bold text-white">Primary Dark</p>
-                  <p className="text-xs text-foreground-muted">#0f172a</p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Colors & Typography Column */}
+            <div className="space-y-6">
+              {/* Colors */}
+              <div className="bg-[#0A0A0A] border border-white/5 rounded-2xl p-6">
+                <div className="flex items-center gap-2 mb-6">
+                  <Palette size={18} className="text-[#c084fc]" />
+                  <h3 className="text-sm font-bold uppercase tracking-widest text-white">Color Palette</h3>
+                </div>
+                <div className="space-y-4">
+                  {colors.map(color => (
+                    <div key={color.id} className="flex items-center gap-4 bg-[#111116] border border-white/5 rounded-xl p-3">
+                      <div 
+                        className="w-10 h-10 rounded-lg border border-white/10 shadow-inner shrink-0"
+                        style={{ backgroundColor: color.hex }}
+                      />
+                      <div className="flex-1">
+                        <label className="block text-[10px] font-bold uppercase tracking-widest text-foreground-muted mb-1">{color.label}</label>
+                        <input 
+                          type="text" 
+                          value={color.hex}
+                          onChange={(e) => handleUpdateColor(color.id, e.target.value)}
+                          className="w-full bg-transparent border-none text-sm text-white outline-none uppercase font-mono"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                  <button className="w-full py-3 rounded-xl border border-dashed border-white/10 text-xs font-bold uppercase tracking-widest text-foreground-muted hover:text-white hover:border-white/20 hover:bg-white/5 transition-colors flex items-center justify-center gap-2">
+                    <Plus size={14} /> Add Color
+                  </button>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-[#3b82f6] border border-white/10 shadow-inner"></div>
-                <div>
-                  <p className="text-sm font-bold text-white">Accent Blue</p>
-                  <p className="text-xs text-foreground-muted">#3b82f6</p>
+
+              {/* Typography */}
+              <div className="bg-[#0A0A0A] border border-white/5 rounded-2xl p-6">
+                <div className="flex items-center gap-2 mb-6">
+                  <Type size={18} className="text-blue-400" />
+                  <h3 className="text-sm font-bold uppercase tracking-widest text-white">Typography</h3>
+                </div>
+                <div className="space-y-4">
+                  {fonts.map(font => (
+                    <div key={font.id} className="bg-[#111116] border border-white/5 rounded-xl p-3">
+                      <label className="block text-[10px] font-bold uppercase tracking-widest text-foreground-muted mb-1">{font.label}</label>
+                      <input 
+                        type="text" 
+                        value={font.value}
+                        onChange={(e) => handleUpdateFont(font.id, e.target.value)}
+                        className="w-full bg-transparent border-none text-sm text-white outline-none"
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Typography */}
-          <div className="p-5 rounded-xl border border-white/5 bg-[#0A0A0A]">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-foreground-muted mb-4">Typography</h4>
-            <div className="space-y-4">
-              <div>
-                <p className="text-xs text-foreground-muted mb-1">Headings</p>
-                <p className="text-lg font-display font-bold text-white">Manrope</p>
-              </div>
-              <div>
-                <p className="text-xs text-foreground-muted mb-1">Body Text</p>
-                <p className="text-base font-sans text-white">Inter Regular</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Logos */}
-          <div className="p-5 rounded-xl border border-white/5 bg-[#0A0A0A]">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-foreground-muted mb-4">Logos</h4>
-            <div className="space-y-3">
-              <div className="h-12 bg-white rounded-lg flex items-center justify-center p-2">
-                <div className="flex items-center gap-2 text-black font-bold text-lg">
-                  <div className="w-6 h-6 bg-blue-600 rounded-md"></div> Apex Solutions
+            {/* Logos & Templates Column */}
+            <div className="space-y-6">
+              {/* Logos */}
+              <div className="bg-[#0A0A0A] border border-white/5 rounded-2xl p-6">
+                <div className="flex items-center gap-2 mb-6">
+                  <ImageIcon size={18} className="text-emerald-400" />
+                  <h3 className="text-sm font-bold uppercase tracking-widest text-white">Logos</h3>
+                </div>
+                <div className="space-y-4">
+                  <div className="bg-[#111116] border border-white/5 rounded-xl p-4 relative group">
+                    <button className="absolute top-2 right-2 p-1.5 bg-black/50 hover:bg-red-500/80 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-all backdrop-blur-sm">
+                      <Trash2 size={14} />
+                    </button>
+                    <div className="h-16 bg-white rounded-lg flex items-center justify-center p-2 mb-3">
+                      <div className="flex items-center gap-2 text-black font-bold text-xl">
+                        <div className="w-8 h-8 bg-blue-600 rounded-md"></div> Apex Solutions
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-medium text-white">Primary Logo (Light BG)</span>
+                      <span className="text-[10px] text-foreground-muted uppercase tracking-wider">PNG • 240KB</span>
+                    </div>
+                  </div>
+                  <button className="w-full py-3 rounded-xl border border-dashed border-white/10 text-xs font-bold uppercase tracking-widest text-foreground-muted hover:text-white hover:border-white/20 hover:bg-white/5 transition-colors flex items-center justify-center gap-2">
+                    <UploadCloud size={14} /> Upload Logo Variant
+                  </button>
                 </div>
               </div>
-              <p className="text-[10px] text-center text-foreground-muted">Extracted from header</p>
+
+              {/* Document Templates */}
+              <div className="bg-[#0A0A0A] border border-white/5 rounded-2xl p-6">
+                <div className="flex items-center gap-2 mb-6">
+                  <FileUp size={18} className="text-amber-400" />
+                  <h3 className="text-sm font-bold uppercase tracking-widest text-white">Export Templates</h3>
+                </div>
+                <div className="space-y-3">
+                  {templates.map(template => (
+                    <div key={template.id} className={cn(
+                      "flex items-center justify-between p-3 rounded-xl border transition-colors group",
+                      template.isDefault ? "bg-amber-500/5 border-amber-500/20" : "bg-[#111116] border-white/5 hover:border-white/10"
+                    )}>
+                      <div className="flex items-center gap-3 overflow-hidden">
+                        <div className={cn(
+                          "w-8 h-8 rounded-lg flex items-center justify-center shrink-0",
+                          template.isDefault ? "bg-amber-500/20 text-amber-400" : "bg-white/5 text-foreground-muted"
+                        )}>
+                          <FileText size={14} />
+                        </div>
+                        <span className="text-sm font-medium text-white truncate pr-4">{template.name}</span>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        {template.isDefault ? (
+                          <span className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 px-2 py-1 rounded-md">
+                            <Star size={10} className="fill-amber-400" /> Default
+                          </span>
+                        ) : (
+                          <button 
+                            onClick={() => setAsDefaultTemplate(template.id)}
+                            className="text-[10px] font-bold uppercase tracking-widest text-foreground-muted hover:text-white px-2 py-1 rounded-md hover:bg-white/10 transition-colors opacity-0 group-hover:opacity-100"
+                          >
+                            Set Default
+                          </button>
+                        )}
+                        <button 
+                          onClick={() => removeTemplate(template.id)}
+                          className="p-1.5 text-foreground-muted hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                  <button className="w-full py-3 rounded-xl border border-dashed border-white/10 text-xs font-bold uppercase tracking-widest text-foreground-muted hover:text-white hover:border-white/20 hover:bg-white/5 transition-colors flex items-center justify-center gap-2">
+                    <UploadCloud size={14} /> Upload Word Template (.dotx)
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
