@@ -79,23 +79,23 @@ export function FOIAEngine() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
         <div className="flex gap-5 items-center">
-          <div className="w-14 h-14 rounded-2xl bg-[#8b5cf6] flex items-center justify-center shadow-[0_0_20px_rgba(139,92,246,0.3)] shrink-0">
+          <div className="w-14 h-14 rounded-none bg-[#8b5cf6] flex items-center justify-center shadow-[0_0_20px_rgba(139,92,246,0.3)] shrink-0">
             <FileText className="w-7 h-7 text-white" />
           </div>
           <div>
             <div className="flex items-center gap-3 mb-1">
-              <h1 className="text-3xl font-display font-bold text-foreground">FOIA Engine</h1>
-              <span className="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-[#8b5cf6] to-[#c084fc] text-white text-[10px] font-bold uppercase tracking-widest shadow-[0_0_10px_rgba(139,92,246,0.5)]">
+              <h1 className="text-base uppercase tracking-widest font-bold text-foreground">FOIA Engine</h1>
+              <span className="px-2.5 py-0.5 rounded-none bg-gradient-to-r from-[#8b5cf6] to-[#c084fc] text-white text-[10px] font-bold uppercase tracking-widest shadow-[0_0_10px_rgba(139,92,246,0.5)]">
                 Pro
               </span>
             </div>
-            <p className="text-foreground-muted text-sm md:text-base">Automate Sunshine Law requests to acquire incumbent contracts and pricing.</p>
+            <p className="text-foreground-muted text-[10px] uppercase tracking-widest font-bold md:text-xs">Automate Sunshine Law requests to acquire incumbent contracts and pricing.</p>
           </div>
         </div>
         
         <button 
           onClick={() => setShowNewRequestModal(true)}
-          className="flex items-center justify-center gap-2 bg-white hover:bg-gray-100 text-black font-bold py-2.5 px-5 rounded-xl transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] hover:-translate-y-0.5 shrink-0"
+          className="flex items-center justify-center gap-2 bg-white hover:bg-gray-200 text-black font-bold py-2.5 px-5 text-[10px] uppercase tracking-widest rounded-none transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] active:scale-95 shrink-0"
         >
           <Plus className="w-5 h-5" />
           New Request
@@ -104,57 +104,57 @@ export function FOIAEngine() {
 
       {/* Stats Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div className="bg-background-secondary border border-white/5 hover:border-white/10 transition-colors rounded-xl p-5 flex items-center gap-4">
-          <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0">
+        <div className="bg-background-secondary border border-white/5 hover:border-white/10 transition-colors rounded-none p-5 flex items-center gap-4">
+          <div className="w-10 h-10 rounded-none bg-blue-500/10 flex items-center justify-center shrink-0">
             <Clock className="w-5 h-5 text-blue-400" />
           </div>
           <div>
-            <p className="text-sm font-medium text-foreground-muted mb-0.5">Active Requests</p>
-            <p className="text-2xl font-bold text-foreground">4</p>
+            <p className="text-[10px] uppercase tracking-widest font-bold text-foreground-muted mb-0.5">Active Requests</p>
+            <p className="text-sm uppercase tracking-widest font-bold text-foreground">4</p>
           </div>
         </div>
-        <div className="bg-background-secondary border border-white/5 hover:border-white/10 transition-colors rounded-xl p-5 flex items-center gap-4">
-          <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center shrink-0">
+        <div className="bg-background-secondary border border-white/5 hover:border-white/10 transition-colors rounded-none p-5 flex items-center gap-4">
+          <div className="w-10 h-10 rounded-none bg-amber-500/10 flex items-center justify-center shrink-0">
             <AlertCircle className="w-5 h-5 text-amber-500" />
           </div>
           <div>
-            <p className="text-sm font-medium text-foreground-muted mb-0.5">Action Needed</p>
-            <p className="text-2xl font-bold text-foreground">1</p>
+            <p className="text-[10px] uppercase tracking-widest font-bold text-foreground-muted mb-0.5">Action Needed</p>
+            <p className="text-sm uppercase tracking-widest font-bold text-foreground">1</p>
           </div>
         </div>
-        <div className="bg-background-secondary border border-white/5 hover:border-white/10 transition-colors rounded-xl p-5 flex items-center gap-4">
-          <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0">
+        <div className="bg-background-secondary border border-white/5 hover:border-white/10 transition-colors rounded-none p-5 flex items-center gap-4">
+          <div className="w-10 h-10 rounded-none bg-emerald-500/10 flex items-center justify-center shrink-0">
             <CheckCircle2 className="w-5 h-5 text-emerald-500" />
           </div>
           <div>
-            <p className="text-sm font-medium text-foreground-muted mb-0.5">Completed</p>
-            <p className="text-2xl font-bold text-foreground">2</p>
+            <p className="text-[10px] uppercase tracking-widest font-bold text-foreground-muted mb-0.5">Completed</p>
+            <p className="text-sm uppercase tracking-widest font-bold text-foreground">2</p>
           </div>
         </div>
-        <div className="bg-background-secondary border border-white/5 hover:border-white/10 transition-colors rounded-xl p-5 flex items-center gap-4">
-          <div className="w-10 h-10 rounded-lg bg-[#8b5cf6]/10 flex items-center justify-center shrink-0">
+        <div className="bg-background-secondary border border-white/5 hover:border-white/10 transition-colors rounded-none p-5 flex items-center gap-4">
+          <div className="w-10 h-10 rounded-none bg-[#8b5cf6]/10 flex items-center justify-center shrink-0">
             <FileText className="w-5 h-5 text-[#c084fc]" />
           </div>
           <div>
-            <p className="text-sm font-medium text-foreground-muted mb-0.5">Docs Acquired</p>
-            <p className="text-2xl font-bold text-foreground">15</p>
+            <p className="text-[10px] uppercase tracking-widest font-bold text-foreground-muted mb-0.5">Docs Acquired</p>
+            <p className="text-sm uppercase tracking-widest font-bold text-foreground">15</p>
           </div>
         </div>
       </div>
 
       {/* Full Width Table */}
-      <div className="bg-background-secondary border border-white/5 hover:border-white/10 transition-colors rounded-2xl shadow-lg flex flex-col overflow-hidden">
+      <div className="bg-background-secondary border border-white/5 hover:border-white/10 transition-colors rounded-none shadow-none flex flex-col overflow-hidden">
         {/* Table Header */}
         <div className="p-6 border-b border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-background-secondary/50">
           <div>
-            <h2 className="text-lg font-display font-bold text-foreground mb-1">Request Pipeline</h2>
-            <p className="text-sm text-foreground-muted">Manage and track your automated FOIA requests.</p>
+            <h2 className="text-sm uppercase tracking-widest font-bold text-foreground mb-1">Request Pipeline</h2>
+            <p className="text-[10px] uppercase tracking-widest font-bold text-foreground-muted">Manage and track your automated FOIA requests.</p>
           </div>
           <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/5 bg-background hover:bg-background-tertiary text-sm font-medium text-foreground-muted hover:text-foreground transition-colors">
+            <button className="flex items-center gap-2 px-3 py-1.5 rounded-none border border-white/5 bg-background hover:bg-background-tertiary text-[10px] uppercase tracking-widest font-bold text-foreground-muted hover:text-foreground transition-colors">
               <Filter className="w-4 h-4" /> Filter
             </button>
-            <button className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/5 bg-background hover:bg-background-tertiary text-sm font-medium text-foreground-muted hover:text-foreground transition-colors">
+            <button className="flex items-center gap-2 px-3 py-1.5 rounded-none border border-white/5 bg-background hover:bg-background-tertiary text-[10px] uppercase tracking-widest font-bold text-foreground-muted hover:text-foreground transition-colors">
               <Download className="w-4 h-4" /> Export
             </button>
           </div>
@@ -165,11 +165,11 @@ export function FOIAEngine() {
           <table className="w-full text-left border-collapse min-w-[800px]">
             <thead>
               <tr className="border-b border-white/5 bg-background/50">
-                <th className="px-6 py-4 text-xs font-semibold text-foreground-muted uppercase tracking-wider">Request Details</th>
-                <th className="px-6 py-4 text-xs font-semibold text-foreground-muted uppercase tracking-wider">Status</th>
-                <th className="px-6 py-4 text-xs font-semibold text-foreground-muted uppercase tracking-wider">Timeline</th>
-                <th className="px-6 py-4 text-xs font-semibold text-foreground-muted uppercase tracking-wider">Docs</th>
-                <th className="px-6 py-4 text-xs font-semibold text-foreground-muted uppercase tracking-wider text-right">Actions</th>
+                <th className="px-6 py-4 text-[10px] uppercase tracking-widest font-bold text-foreground-muted uppercase tracking-wider">Request Details</th>
+                <th className="px-6 py-4 text-[10px] uppercase tracking-widest font-bold text-foreground-muted uppercase tracking-wider">Status</th>
+                <th className="px-6 py-4 text-[10px] uppercase tracking-widest font-bold text-foreground-muted uppercase tracking-wider">Timeline</th>
+                <th className="px-6 py-4 text-[10px] uppercase tracking-widest font-bold text-foreground-muted uppercase tracking-wider">Docs</th>
+                <th className="px-6 py-4 text-[10px] uppercase tracking-widest font-bold text-foreground-muted uppercase tracking-wider text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
@@ -181,32 +181,32 @@ export function FOIAEngine() {
                   <tr key={request.id} className="hover:bg-background-tertiary/30 transition-colors group">
                     <td className="px-6 py-4">
                       <div className="flex flex-col">
-                        <span className="text-sm font-bold text-foreground mb-1">{request.title}</span>
-                        <div className="flex items-center gap-2 text-xs text-foreground-muted">
+                        <span className="text-[10px] uppercase tracking-widest font-bold font-bold text-foreground mb-1">{request.title}</span>
+                        <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold text-foreground-muted">
                           <span className="font-mono text-foreground-subtle">{request.id}</span>
                           <span>•</span>
                           <span className="truncate max-w-[250px]">{request.agency}</span>
-                          <span className="px-1.5 py-0.5 rounded bg-background border border-white/5 text-[10px] font-medium uppercase">
+                          <span className="px-1.5 py-0.5 rounded-none bg-background border border-white/5 text-[10px] font-bold uppercase">
                             {request.state}
                           </span>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className={cn("inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border text-xs font-medium", status.bg, status.border, status.color)}>
+                      <div className={cn("inline-flex items-center gap-1.5 px-2.5 py-1 rounded-none border text-[10px] uppercase tracking-widest font-bold", status.bg, status.border, status.color)}>
                         <StatusIcon className="w-3.5 h-3.5" />
                         {status.label}
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="flex flex-col gap-1 text-xs">
+                      <div className="flex flex-col gap-1 text-[10px] uppercase tracking-widest font-bold">
                         <div className="flex items-center justify-between gap-4">
                           <span className="text-foreground-subtle">Sent:</span>
-                          <span className="text-foreground font-medium">{request.dateSent}</span>
+                          <span className="text-foreground font-bold">{request.dateSent}</span>
                         </div>
                         <div className="flex items-center justify-between gap-4">
                           <span className="text-foreground-subtle">Due:</span>
-                          <span className={cn("font-medium", request.status === 'action_needed' ? 'text-amber-500' : 'text-foreground')}>
+                          <span className={cn("font-bold", request.status === 'action_needed' ? 'text-amber-500' : 'text-foreground')}>
                             {request.dueDate}
                           </span>
                         </div>
@@ -214,20 +214,20 @@ export function FOIAEngine() {
                     </td>
                     <td className="px-6 py-4">
                       {request.docs > 0 ? (
-                        <div className="flex items-center gap-1.5 text-emerald-500 font-medium text-sm">
+                        <div className="flex items-center gap-1.5 text-emerald-500 font-bold text-[10px] uppercase tracking-widest font-bold">
                           <FileText className="w-4 h-4" />
                           {request.docs}
                         </div>
                       ) : (
-                        <span className="text-foreground-subtle text-sm">—</span>
+                        <span className="text-foreground-subtle text-[10px] uppercase tracking-widest font-bold">—</span>
                       )}
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button className="p-1.5 rounded-md hover:bg-background border border-transparent hover:border-white/5 text-foreground-muted hover:text-foreground transition-all tooltip-trigger">
+                        <button className="p-1.5 rounded-none hover:bg-background border border-transparent hover:border-white/5 text-foreground-muted hover:text-foreground transition-all tooltip-trigger">
                           <ExternalLink className="w-4 h-4" />
                         </button>
-                        <button className="p-1.5 rounded-md hover:bg-background border border-transparent hover:border-white/5 text-foreground-muted hover:text-foreground transition-all">
+                        <button className="p-1.5 rounded-none hover:bg-background border border-transparent hover:border-white/5 text-foreground-muted hover:text-foreground transition-all">
                           <MoreHorizontal className="w-4 h-4" />
                         </button>
                       </div>
@@ -240,11 +240,11 @@ export function FOIAEngine() {
         </div>
         
         {/* Footer Pagination/Info */}
-        <div className="p-4 border-t border-white/5 bg-background-secondary/50 flex items-center justify-between text-xs text-foreground-muted">
+        <div className="p-4 border-t border-white/5 bg-background-secondary/50 flex items-center justify-between text-[10px] uppercase tracking-widest font-bold text-foreground-muted">
           <span>Showing 1 to 5 of 12 requests</span>
           <div className="flex items-center gap-1">
-            <button className="px-2 py-1 rounded hover:bg-background-tertiary disabled:opacity-50" disabled>Prev</button>
-            <button className="px-2 py-1 rounded hover:bg-background-tertiary">Next</button>
+            <button className="px-2 py-1 rounded-none hover:bg-background-tertiary disabled:opacity-50" disabled>Prev</button>
+            <button className="px-2 py-1 rounded-none hover:bg-background-tertiary">Next</button>
           </div>
         </div>
       </div>
@@ -252,20 +252,20 @@ export function FOIAEngine() {
       {/* New Request Modal */}
       {showNewRequestModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-background-secondary border border-white/5 hover:border-white/10 transition-colors rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 duration-200">
+          <div className="bg-background-secondary border border-white/5 hover:border-white/10 transition-colors rounded-none w-full max-w-lg shadow-none overflow-hidden flex flex-col animate-in zoom-in-95 duration-200">
             {/* Modal Header */}
             <div className="px-6 py-5 border-b border-white/5 flex items-center justify-between bg-background-secondary/50 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#8b5cf6]/5 rounded-bl-full -z-10" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#8b5cf6]/5 rounded-none -z-10" />
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#8b5cf6]/10 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-none bg-[#8b5cf6]/10 flex items-center justify-center">
                   <FileText className="w-5 h-5 text-[#c084fc]" />
                 </div>
                 <div>
-                  <h2 className="text-lg font-display font-bold text-foreground">Draft FOIA Request</h2>
-                  <p className="text-xs text-foreground-muted">Generate and send via Resend</p>
+                  <h2 className="text-sm uppercase tracking-widest font-bold text-foreground">Draft FOIA Request</h2>
+                  <p className="text-[10px] uppercase tracking-widest font-bold text-foreground-muted">Generate and send via Resend</p>
                 </div>
               </div>
-              <button onClick={() => setShowNewRequestModal(false)} className="p-2 rounded-lg hover:bg-background text-foreground-muted transition-colors">
+              <button onClick={() => setShowNewRequestModal(false)} className="p-2 rounded-none hover:bg-background text-foreground-muted transition-colors">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -273,11 +273,11 @@ export function FOIAEngine() {
             {/* Modal Body */}
             <div className="p-6 space-y-5 overflow-y-auto max-h-[70vh] custom-scrollbar">
               <div>
-                <label className="block text-sm font-medium text-foreground-muted mb-2">State Jurisdiction</label>
+                <label className="block text-[10px] uppercase tracking-widest font-bold text-foreground-muted mb-2">State Jurisdiction</label>
                 <div className="relative">
                   <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground-subtle" />
                   <select 
-                    className="w-full bg-background border border-white/5 hover:border-white/10 transition-colors rounded-xl pl-10 pr-4 py-3 text-sm text-foreground appearance-none focus:outline-none focus:border-electric focus:ring-1 focus:ring-electric transition-all"
+                    className="w-full bg-background border border-white/5 hover:border-white/10 transition-colors rounded-none pl-10 pr-4 py-3 text-[10px] uppercase tracking-widest font-bold text-foreground appearance-none focus:outline-none focus:border-electric focus:ring-1 focus:ring-electric transition-all"
                     defaultValue=""
                   >
                     <option value="" disabled>Select a state</option>
@@ -293,36 +293,36 @@ export function FOIAEngine() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-foreground-muted mb-2">Agency Name</label>
+                <label className="block text-[10px] uppercase tracking-widest font-bold text-foreground-muted mb-2">Agency Name</label>
                 <div className="relative">
                   <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground-subtle" />
                   <input 
                     type="text" 
                     placeholder="e.g., California Dept of Transportation" 
-                    className="w-full bg-background border border-white/5 hover:border-white/10 transition-colors rounded-xl pl-10 pr-4 py-3 text-sm text-foreground focus:outline-none focus:border-electric focus:ring-1 focus:ring-electric transition-all"
+                    className="w-full bg-background border border-white/5 hover:border-white/10 transition-colors rounded-none pl-10 pr-4 py-3 text-[10px] uppercase tracking-widest font-bold text-foreground focus:outline-none focus:border-electric focus:ring-1 focus:ring-electric transition-all"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-foreground-muted mb-2">Target Document(s)</label>
+                <label className="block text-[10px] uppercase tracking-widest font-bold text-foreground-muted mb-2">Target Document(s)</label>
                 <textarea 
                   rows={4}
-                  className="w-full bg-background border border-white/5 hover:border-white/10 transition-colors rounded-xl p-4 text-sm text-foreground focus:outline-none focus:border-electric focus:ring-1 focus:ring-electric transition-all resize-none"
+                  className="w-full bg-background border border-white/5 hover:border-white/10 transition-colors rounded-none p-4 text-[10px] uppercase tracking-widest font-bold text-foreground focus:outline-none focus:border-electric focus:ring-1 focus:ring-electric transition-all resize-none"
                   defaultValue="Winning proposal and pricing tabulation from incumbent"
                 />
               </div>
 
               {/* Inbox Routing Info */}
-              <div className="bg-background border border-white/5 hover:border-white/10 transition-colors rounded-xl p-4 mt-2">
+              <div className="bg-background border border-white/5 hover:border-white/10 transition-colors rounded-none p-4 mt-2">
                 <div className="flex items-start gap-3">
                   <Mail className="w-4 h-4 text-foreground-muted mt-0.5" />
                   <div>
-                    <h4 className="text-sm font-medium text-foreground mb-1">Automated Inbox Routing</h4>
-                    <p className="text-xs text-foreground-muted leading-relaxed mb-3">
+                    <h4 className="text-[10px] uppercase tracking-widest font-bold text-foreground mb-1">Automated Inbox Routing</h4>
+                    <p className="text-[10px] uppercase tracking-widest font-bold text-foreground-muted leading-relaxed mb-3">
                       Replies will be routed to <span className="font-mono text-foreground-subtle">foia-inbound@intentbid.com</span> for automatic parsing.
                     </p>
-                    <div className="flex items-center gap-2 text-[11px] font-medium text-[#c084fc]">
+                    <div className="flex items-center gap-2 text-[11px] font-bold text-[#c084fc]">
                       <ShieldCheck className="w-3.5 h-3.5" /> State Laws Applied Automatically
                     </div>
                   </div>
@@ -334,7 +334,7 @@ export function FOIAEngine() {
             <div className="p-6 border-t border-white/5 bg-background-secondary/50">
               <button 
                 onClick={() => setShowNewRequestModal(false)}
-                className="w-full flex items-center justify-center gap-2 bg-white hover:bg-gray-100 text-black font-bold py-3.5 px-4 rounded-xl transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] hover:-translate-y-0.5"
+                className="w-full flex items-center justify-center gap-2 bg-white hover:bg-gray-200 text-black font-bold py-3.5 px-4 text-[10px] uppercase tracking-widest rounded-none transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] active:scale-95"
               >
                 <FileOutput className="w-5 h-5" />
                 Generate & Send Request

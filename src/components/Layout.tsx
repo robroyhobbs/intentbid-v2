@@ -13,22 +13,22 @@ export function Layout() {
         {/* Top Bar */}
         <header className="h-16 border-b border-white/5 bg-[#050505] flex items-center justify-between px-8 shrink-0">
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-            <span className="text-xs font-medium text-foreground-muted">IDD Active</span>
+            <div className="w-2 h-2 bg-emerald-500" />
+            <span className="text-[10px] font-mono uppercase tracking-widest text-foreground-muted">IDD Active</span>
           </div>
           
           <div className="flex items-center gap-6">
             <button className="text-foreground-muted hover:text-white transition-colors relative">
               <Bell size={18} />
-              <div className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#8b5cf6]" />
+              <div className="absolute -top-1 -right-1 w-2 h-2 bg-[#8b5cf6]" />
             </button>
             
             <div className="flex items-center gap-4">
-              <div className="w-8 h-8 rounded-full bg-[#2c2832] border border-white/10 flex items-center justify-center text-foreground-muted">
+              <div className="w-8 h-8 bg-[#111116] border border-white/10 flex items-center justify-center text-foreground-muted">
                 <User size={16} />
               </div>
-              <button className="flex items-center gap-2 text-sm font-medium text-foreground-muted hover:text-white transition-colors">
-                <LogOut size={16} />
+              <button className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-foreground-muted hover:text-white transition-colors">
+                <LogOut size={14} />
                 Sign out
               </button>
             </div>

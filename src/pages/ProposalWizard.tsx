@@ -147,16 +147,19 @@ export function ProposalWizard() {
   const overallScore = Math.round((Object.values(bidScores) as number[]).reduce((a: number, b: number) => a + b, 0) / 5);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background">
+    <div className="flex h-screen overflow-hidden bg-[#050505] relative z-10">
+      {/* Subtle Noise Texture Overlay */}
+      <div className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-[0.02]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
+
       {/* Wizard Sidebar */}
-      <aside className="flex h-full w-[260px] flex-col bg-background-secondary border-r border-white/5">
+      <aside className="flex h-full w-[260px] flex-col bg-[#0A0A0A] border-r border-white/10 relative z-10">
         {/* Logo */}
-        <div className="px-5 py-5 border-b border-white/5">
+        <div className="px-5 py-5 border-b border-white/10">
           <Link to="/proposals" className="flex items-center gap-2.5 group">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-electric text-background text-sm font-bold">
+            <div className="flex h-8 w-8 items-center justify-center bg-[#111116] border border-white/10 text-white text-[10px] uppercase tracking-widest font-bold">
               IB
             </div>
-            <span className="text-sm font-semibold text-foreground group-hover:text-electric transition-colors">
+            <span className="text-[10px] uppercase tracking-widest font-bold text-white group-hover:text-[#c084fc] transition-colors">
               IntentBid
             </span>
           </Link>
@@ -164,7 +167,7 @@ export function ProposalWizard() {
 
         {/* Section Label */}
         <div className="px-5 pt-6 pb-2">
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-foreground-muted">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-foreground-muted">
             New Proposal
           </span>
         </div>
@@ -184,39 +187,39 @@ export function ProposalWizard() {
                     }}
                     disabled={!isCompleted && !isCurrent}
                     className={cn(
-                      "w-full relative flex items-center text-left gap-3 rounded-xl px-3 py-3 transition-all",
-                      isCurrent ? "bg-background-tertiary" : isCompleted ? "hover:bg-background-tertiary cursor-pointer" : "opacity-50 cursor-not-allowed"
+                      "w-full relative flex items-center text-left gap-3 px-3 py-3 transition-all border border-transparent",
+                      isCurrent ? "bg-[#111116] border-white/10" : isCompleted ? "hover:bg-white/5 cursor-pointer" : "opacity-50 cursor-not-allowed"
                     )}
                   >
                     {/* Active accent bar */}
                     {isCurrent && (
-                      <div className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-[3px] rounded-r-full bg-electric shadow-[0_0_8px_var(--color-electric)]" />
+                      <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#8b5cf6]" />
                     )}
 
                     {/* Step Indicator */}
                     {isCompleted && !isCurrent ? (
-                      <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-success-subtle text-success">
+                      <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
                         <Check size={16} strokeWidth={2.5} />
                       </span>
                     ) : isCurrent ? (
-                      <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-electric text-background text-xs font-bold">
+                      <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center bg-[#8b5cf6] text-white text-[10px] font-bold font-mono">
                         {index + 1}
                       </span>
                     ) : (
-                      <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-white/5 text-foreground-muted text-xs">
+                      <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center border border-white/10 text-foreground-muted text-[10px] font-mono">
                         {index + 1}
                       </span>
                     )}
 
                     <div className="min-w-0 flex flex-col">
                       <p className={cn(
-                        "text-sm font-medium truncate",
-                        isCurrent ? "text-foreground" : isCompleted ? "text-foreground-muted" : "text-foreground-subtle"
+                        "text-[10px] font-bold uppercase tracking-widest truncate",
+                        isCurrent ? "text-white" : isCompleted ? "text-foreground-muted" : "text-foreground-subtle"
                       )}>
                         {step.name}
                       </p>
                       {isCurrent && (
-                        <p className="text-xs text-foreground-subtle truncate mt-0.5">
+                        <p className="text-[10px] font-mono text-foreground-subtle truncate mt-0.5">
                           {step.description}
                         </p>
                       )}
@@ -232,7 +235,7 @@ export function ProposalWizard() {
         <div className="px-3 pb-5">
           <Link
             to="/proposals"
-            className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/5 px-4 py-2.5 text-sm font-medium text-foreground-muted hover:text-foreground hover:border-foreground-subtle hover:bg-background-tertiary transition-all"
+            className="flex w-full items-center justify-center gap-2 border border-white/10 px-4 py-2.5 text-[10px] font-bold uppercase tracking-widest text-foreground-muted hover:text-white hover:bg-white/[0.02] transition-all"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
@@ -251,8 +254,8 @@ export function ProposalWizard() {
             {currentStep === 0 && (
               <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <div>
-                  <h2 className="text-2xl font-display font-bold text-foreground">Source Material</h2>
-                  <p className="text-foreground-muted mt-2">Provide the solicitation documents or details to begin.</p>
+                  <h2 className="text-sm uppercase tracking-widest font-bold text-white uppercase tracking-tight">Source Material</h2>
+                  <p className="text-[10px] font-mono uppercase tracking-widest text-foreground-muted mt-2">Provide the solicitation documents or details to begin.</p>
                 </div>
 
                 <div className="grid grid-cols-5 gap-2">
@@ -267,14 +270,14 @@ export function ProposalWizard() {
                       key={method.id}
                       onClick={() => setEntryMethod(method.id as any)}
                       className={cn(
-                        "flex flex-col items-center justify-center gap-2 p-4 rounded-xl border transition-all",
+                        "flex flex-col items-center justify-center gap-2 p-4 border transition-all",
                         entryMethod === method.id 
-                          ? "border-electric bg-electric-subtle text-electric" 
-                          : "border-white/5 bg-background-secondary text-foreground-muted hover:border-white/5-focus hover:bg-background-tertiary"
+                          ? "border-[#8b5cf6] bg-[#8b5cf6]/10 text-white" 
+                          : "border-white/10 bg-[#0A0A0A] text-foreground-muted hover:border-white/20 hover:text-white"
                       )}
                     >
-                      <method.icon size={20} />
-                      <span className="text-xs font-medium text-center">{method.label}</span>
+                      <method.icon size={20} className={entryMethod === method.id ? 'text-[#c084fc]' : ''} />
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-center mt-2">{method.label}</span>
                     </button>
                   ))}
                 </div>
@@ -282,16 +285,16 @@ export function ProposalWizard() {
                 {entryMethod === 'upload' && (
                   <div 
                     className={cn(
-                      "flex justify-center rounded-xl border-2 border-dashed px-6 py-16 transition-colors",
-                      uploadedFiles.length > 0 ? "border-white/5 bg-background-tertiary" : "border-white/5 hover:border-electric/50 bg-background-tertiary"
+                      "flex justify-center border-2 border-dashed px-6 py-16 transition-colors",
+                      uploadedFiles.length > 0 ? "border-white/10 bg-[#0A0A0A]" : "border-white/10 hover:border-white/20 bg-[#0A0A0A]"
                     )}
                   >
                     <div className="text-center">
                       <Upload className="mx-auto h-12 w-12 text-foreground-muted" aria-hidden="true" />
-                      <div className="mt-4 flex text-sm leading-6 text-foreground-muted justify-center">
+                      <div className="mt-4 flex text-[10px] uppercase tracking-widest font-bold leading-6 text-foreground-muted justify-center">
                         <label
                           htmlFor="file-upload"
-                          className="relative cursor-pointer rounded-md font-semibold text-electric focus-within:outline-none focus-within:ring-2 focus-within:ring-electric hover:text-electric-dim"
+                          className="relative cursor-pointer font-bold text-[#c084fc] hover:text-white transition-colors"
                         >
                           <span>Upload files</span>
                           <input 
@@ -307,14 +310,14 @@ export function ProposalWizard() {
                         </label>
                         <p className="pl-1">or drag and drop</p>
                       </div>
-                      <p className="text-xs leading-5 text-foreground-subtle mt-2">PDF, DOCX, TXT up to 50MB</p>
+                      <p className="text-[10px] font-mono leading-5 text-foreground-subtle mt-2">PDF, DOCX, TXT up to 50MB</p>
                     </div>
                   </div>
                 )}
 
                 {entryMethod !== 'upload' && (
-                  <div className="rounded-xl border border-white/5 bg-background-secondary p-6">
-                    <p className="text-sm text-foreground-muted text-center py-8">
+                  <div className="border border-white/10 bg-[#0A0A0A] p-6">
+                    <p className="text-[10px] font-mono uppercase tracking-widest text-foreground-muted text-center py-8">
                       {entryMethod === 'paste' && "Paste your RFP content here..."}
                       {entryMethod === 'describe' && "Describe the opportunity in your own words..."}
                       {entryMethod === 'url' && "Enter the URL of the solicitation..."}
@@ -325,22 +328,22 @@ export function ProposalWizard() {
 
                 {uploadedFiles.length > 0 && entryMethod === 'upload' && (
                   <div className="space-y-3">
-                    <h3 className="text-sm font-medium text-foreground">Uploaded Documents ({uploadedFiles.length})</h3>
+                    <h3 className="text-[10px] font-bold uppercase tracking-widest text-foreground-muted">Uploaded Documents ({uploadedFiles.length})</h3>
                     <ul className="space-y-2">
                       {uploadedFiles.map((file, index) => (
-                        <li key={index} className="flex items-center justify-between rounded-xl border border-white/5 bg-background-secondary p-4">
+                        <li key={index} className="flex items-center justify-between border border-white/10 bg-[#0A0A0A] p-4">
                           <div className="flex items-center gap-3">
-                            <div className="p-2 bg-background-tertiary rounded-lg">
-                              <FileText className="h-5 w-5 text-electric" />
+                            <div className="p-2 bg-[#111116] border border-white/10">
+                              <FileText className="h-5 w-5 text-[#c084fc]" />
                             </div>
                             <div className="flex flex-col">
-                              <span className="text-sm font-medium text-foreground">{file.name}</span>
-                              <span className="text-xs text-foreground-muted">{(file.size / 1024 / 1024).toFixed(2)} MB</span>
+                              <span className="text-[10px] uppercase tracking-widest font-bold text-white">{file.name}</span>
+                              <span className="text-[10px] font-mono text-foreground-muted">{(file.size / 1024 / 1024).toFixed(2)} MB</span>
                             </div>
                           </div>
                           <button 
                             onClick={() => removeFile(index)}
-                            className="p-2 text-foreground-muted hover:text-warning hover:bg-warning-subtle rounded-lg transition-colors"
+                            className="p-2 text-foreground-muted hover:text-red-400 hover:bg-red-400/10 transition-colors"
                           >
                             <X size={16} />
                           </button>
@@ -356,18 +359,18 @@ export function ProposalWizard() {
                     id="research" 
                     checked={researchClient}
                     onChange={(e) => setResearchClient(e.target.checked)}
-                    className="rounded border-white/5 bg-background text-electric focus:ring-electric"
+                    className="border-white/10 text-[#8b5cf6] focus:ring-[#8b5cf6] bg-[#111116] w-4 h-4"
                   />
-                  <label htmlFor="research" className="text-sm text-foreground">
+                  <label htmlFor="research" className="text-[10px] font-mono uppercase tracking-widest text-foreground-muted">
                     Automatically research client background and recent news
                   </label>
                 </div>
 
                 {isExtracting && (
-                  <div className="rounded-xl border border-electric/30 bg-electric-subtle p-8 text-center">
-                    <Loader2 className="mx-auto h-8 w-8 animate-spin text-electric" />
-                    <h3 className="mt-4 text-sm font-bold text-foreground">Analyzing & Extracting...</h3>
-                    <p className="mt-2 text-sm text-foreground-muted">Parsing structured fields and gathering company intel.</p>
+                  <div className="border border-[#8b5cf6]/30 bg-[#8b5cf6]/10 p-8 text-center">
+                    <Loader2 className="mx-auto h-8 w-8 animate-spin text-[#c084fc]" />
+                    <h3 className="mt-4 text-[10px] font-bold uppercase tracking-widest text-white">Analyzing & Extracting...</h3>
+                    <p className="mt-2 text-[10px] uppercase tracking-widest font-bold text-foreground-muted">Parsing structured fields and gathering company intel.</p>
                   </div>
                 )}
               </div>
@@ -377,22 +380,22 @@ export function ProposalWizard() {
             {currentStep === 1 && (
               <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <div>
-                  <h2 className="text-2xl font-display font-bold text-foreground">Verify Extraction</h2>
-                  <p className="text-foreground-muted mt-2">Review the extracted data, fix any gaps, and confirm details.</p>
+                  <h2 className="text-sm uppercase tracking-widest font-bold text-white">Verify Extraction</h2>
+                  <p className="text-[10px] font-mono uppercase tracking-widest text-foreground-muted mt-2">Review the extracted data, fix any gaps, and confirm details.</p>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-4">
-                    <h3 className="text-xs font-bold text-foreground-subtle uppercase tracking-wider">Extracted Fields</h3>
-                    <div className="rounded-xl border border-white/5 bg-background-secondary p-5 space-y-4">
+                    <h3 className="text-[10px] font-bold text-foreground-subtle uppercase tracking-widest">Extracted Fields</h3>
+                    <div className="border border-white/10 bg-[#0A0A0A] p-5 space-y-4">
                       {Object.entries(extractedData).map(([key, value]) => (
                         <div key={key} className="space-y-1">
-                          <label className="text-xs text-foreground-muted capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</label>
+                          <label className="text-[10px] font-mono uppercase tracking-widest text-foreground-muted capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</label>
                           <input 
                             type="text" 
                             value={value}
                             onChange={(e) => setExtractedData(prev => ({ ...prev, [key]: e.target.value }))}
-                            className="w-full bg-background border border-white/5 rounded-lg px-3 py-2 text-sm text-foreground focus:outline-none focus:border-electric focus:ring-1 focus:ring-electric"
+                            className="w-full bg-[#111116] border border-white/10 px-3 py-2 text-[10px] uppercase tracking-widest font-bold text-white focus:outline-none focus:border-[#8b5cf6] focus:ring-1 focus:ring-[#8b5cf6] font-mono"
                           />
                         </div>
                       ))}
@@ -400,15 +403,15 @@ export function ProposalWizard() {
                   </div>
 
                   <div className="space-y-4">
-                    <h3 className="text-xs font-bold text-foreground-subtle uppercase tracking-wider">Gap Checklist</h3>
-                    <div className="rounded-xl bg-warning-subtle border border-warning-muted p-5">
+                    <h3 className="text-[10px] font-bold text-foreground-subtle uppercase tracking-widest">Gap Checklist</h3>
+                    <div className="bg-red-400/10 border border-red-400/20 p-5">
                       <div className="flex">
                         <div className="flex-shrink-0">
-                          <AlertCircle className="h-5 w-5 text-warning" aria-hidden="true" />
+                          <AlertCircle className="h-5 w-5 text-red-400" aria-hidden="true" />
                         </div>
                         <div className="ml-3">
-                          <h3 className="text-sm font-bold text-warning">Missing Information</h3>
-                          <div className="mt-2 text-sm text-warning/80 space-y-2">
+                          <h3 className="text-[10px] font-bold uppercase tracking-widest text-red-400">Missing Information</h3>
+                          <div className="mt-2 text-[10px] uppercase tracking-widest font-bold text-red-400/80 space-y-2 font-mono">
                             <p>We couldn't confidently extract the following fields:</p>
                             <ul className="list-disc pl-5">
                               <li>Incumbent Contractor</li>
@@ -420,12 +423,12 @@ export function ProposalWizard() {
                     </div>
                     
                     {researchClient && (
-                      <div className="rounded-xl border border-white/5 bg-background-secondary p-5 mt-4">
-                        <h4 className="text-sm font-bold text-foreground flex items-center gap-2 mb-2">
-                          <Sparkles size={16} className="text-electric" />
+                      <div className="border border-white/10 bg-[#0A0A0A] p-5 mt-4">
+                        <h4 className="text-[10px] font-bold uppercase tracking-widest text-white flex items-center gap-2 mb-2">
+                          <Sparkles size={16} className="text-[#c084fc]" />
                           Client Research
                         </h4>
-                        <p className="text-xs text-foreground-muted leading-relaxed">
+                        <p className="text-[10px] uppercase tracking-widest font-bold font-mono text-foreground-muted leading-relaxed">
                           The DoD recently announced a major push for zero-trust architecture across all cloud migrations. Consider emphasizing our zero-trust capabilities.
                         </p>
                       </div>
@@ -439,52 +442,52 @@ export function ProposalWizard() {
             {currentStep === 2 && (
               <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <div>
-                  <h2 className="text-2xl font-display font-bold text-foreground">Bid Decision</h2>
-                  <p className="text-foreground-muted mt-2">Review AI bid scores and select product alignment.</p>
+                  <h2 className="text-sm uppercase tracking-widest font-bold text-white">Bid Decision</h2>
+                  <p className="text-[10px] font-mono uppercase tracking-widest text-foreground-muted mt-2">Review AI bid scores and select product alignment.</p>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="md:col-span-1 rounded-xl border border-white/5 bg-background-secondary p-8 flex flex-col items-center justify-center text-center">
+                  <div className="md:col-span-1 border border-white/10 bg-[#0A0A0A] p-8 flex flex-col items-center justify-center text-center">
                     <div className="relative flex items-center justify-center">
                       <svg className="w-32 h-32 transform -rotate-90">
-                        <circle cx="64" cy="64" r="56" stroke="currentColor" strokeWidth="12" fill="transparent" className="text-border" />
-                        <circle cx="64" cy="64" r="56" stroke="currentColor" strokeWidth="12" fill="transparent" strokeDasharray={56 * 2 * Math.PI} strokeDashoffset={56 * 2 * Math.PI * (1 - (overallScore / 100))} className="text-electric transition-all duration-1000 ease-out" />
+                        <circle cx="64" cy="64" r="56" stroke="currentColor" strokeWidth="12" fill="transparent" className="text-white/10" />
+                        <circle cx="64" cy="64" r="56" stroke="currentColor" strokeWidth="12" fill="transparent" strokeDasharray={56 * 2 * Math.PI} strokeDashoffset={56 * 2 * Math.PI * (1 - (overallScore / 100))} className="text-[#8b5cf6] transition-all duration-1000 ease-out" />
                       </svg>
-                      <div className="absolute text-4xl font-display font-bold text-foreground">{overallScore}<span className="text-2xl text-foreground-muted">%</span></div>
+                      <div className="absolute text-2xl uppercase tracking-widest font-bold text-white">{overallScore}<span className="text-sm uppercase tracking-widest font-bold text-foreground-muted">%</span></div>
                     </div>
-                    <div className="mt-6 text-lg font-bold text-foreground">Win Probability</div>
-                    <div className="mt-2 inline-flex items-center rounded-full bg-success-subtle px-3 py-1 text-xs font-bold text-success">
+                    <div className="mt-6 text-[10px] font-bold uppercase tracking-widest text-white">Win Probability</div>
+                    <div className="mt-2 inline-flex items-center bg-emerald-400/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-emerald-400 border border-emerald-400/20">
                       Recommended: BID
                     </div>
                   </div>
                   
                   <div className="md:col-span-2 space-y-6">
-                    <div className="rounded-xl border border-white/5 bg-background-secondary p-6 space-y-6">
-                      <h3 className="text-xs font-bold text-foreground-subtle uppercase tracking-wider flex items-center justify-between">
+                    <div className="border border-white/10 bg-[#0A0A0A] p-6 space-y-6">
+                      <h3 className="text-[10px] font-bold text-foreground-subtle uppercase tracking-widest flex items-center justify-between">
                         <span>Scoring Factors</span>
                         <SlidersHorizontal size={14} />
                       </h3>
                       <div className="space-y-5">
                         {Object.entries(bidScores).map(([key, score]) => (
                           <div key={key}>
-                            <div className="flex justify-between text-sm mb-2">
-                              <span className="text-foreground font-medium capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
-                              <span className="font-bold text-electric">{score}%</span>
+                            <div className="flex justify-between text-[10px] font-mono uppercase tracking-widest mb-2">
+                              <span className="text-white font-bold capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
+                              <span className="font-bold text-[#c084fc]">{score}%</span>
                             </div>
                             <input 
                               type="range" 
                               min="0" max="100" 
                               value={score}
                               onChange={(e) => setBidScores(prev => ({ ...prev, [key]: parseInt(e.target.value) }))}
-                              className="w-full h-2 bg-background-tertiary rounded-lg appearance-none cursor-pointer accent-electric"
+                              className="w-full h-2 bg-[#111116] appearance-none cursor-pointer accent-[#8b5cf6]"
                             />
                           </div>
                         ))}
                       </div>
                     </div>
                     
-                    <div className="rounded-xl border border-white/5 bg-background-secondary p-6 space-y-4">
-                      <h3 className="text-xs font-bold text-foreground-subtle uppercase tracking-wider">Product Alignment</h3>
+                    <div className="border border-white/10 bg-[#0A0A0A] p-6 space-y-4">
+                      <h3 className="text-[10px] font-bold text-foreground-subtle uppercase tracking-widest">Product Alignment</h3>
                       <div className="flex flex-wrap gap-2">
                         {['Cloud Platform', 'Security Suite', 'Managed Services', 'Training'].map(product => (
                           <button
@@ -495,10 +498,10 @@ export function ProposalWizard() {
                               )
                             }}
                             className={cn(
-                              "px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors",
+                              "px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest border transition-colors",
                               selectedProducts.includes(product) 
-                                ? "bg-electric-subtle border-electric text-electric" 
-                                : "bg-background border-white/5 text-foreground-muted hover:border-foreground-subtle"
+                                ? "bg-[#8b5cf6]/10 border-[#8b5cf6] text-white" 
+                                : "bg-[#111116] border-white/10 text-foreground-muted hover:border-white/20 hover:text-white"
                             )}
                           >
                             {product}
@@ -515,25 +518,25 @@ export function ProposalWizard() {
             {currentStep === 3 && (
               <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
                 <div>
-                  <h2 className="text-2xl font-display font-bold text-foreground">Configure Proposal</h2>
-                  <p className="text-foreground-muted mt-2">Review the AI-generated strategy and confirm document settings.</p>
+                  <h2 className="text-sm uppercase tracking-widest font-bold text-white">Configure Proposal</h2>
+                  <p className="text-[10px] font-mono uppercase tracking-widest text-foreground-muted mt-2">Review the AI-generated strategy and confirm document settings.</p>
                 </div>
 
                 <div className="space-y-8">
                   {/* AI Strategy Summary Card */}
-                  <div className="rounded-xl border border-electric/30 bg-electric/5 p-6 relative overflow-hidden">
+                  <div className="border border-[#8b5cf6]/30 bg-[#8b5cf6]/5 p-6 relative overflow-hidden">
                     <div className="absolute -top-10 -right-10 p-4 opacity-10 pointer-events-none">
-                      <Sparkles className="w-40 h-40 text-electric" />
+                      <Sparkles className="w-40 h-40 text-[#c084fc]" />
                     </div>
                     <div className="relative z-10">
                       <div className="flex items-center justify-between mb-5">
                         <div className="flex items-center gap-2">
-                          <Sparkles className="w-5 h-5 text-electric" />
-                          <h3 className="text-lg font-bold text-foreground">AI-Generated Strategy</h3>
+                          <Sparkles className="w-5 h-5 text-[#c084fc]" />
+                          <h3 className="text-sm uppercase tracking-widest font-bold text-white">AI-Generated Strategy</h3>
                         </div>
                         <button 
                           onClick={() => setIsAdvancedOptionsOpen(!isAdvancedOptionsOpen)}
-                          className="text-sm font-bold text-electric hover:underline"
+                          className="text-[10px] font-bold uppercase tracking-widest text-[#c084fc] hover:text-white transition-colors"
                         >
                           {isAdvancedOptionsOpen ? 'Collapse Strategy' : 'Edit Strategy'}
                         </button>
@@ -542,15 +545,15 @@ export function ProposalWizard() {
                       {!isAdvancedOptionsOpen ? (
                         <div className="space-y-5">
                           <div>
-                            <div className="text-xs font-bold text-foreground-muted uppercase tracking-wider mb-2">Win Themes</div>
+                            <div className="text-[10px] font-bold text-foreground-muted uppercase tracking-widest mb-2">Win Themes</div>
                             <div className="flex flex-wrap gap-2">
                               {winThemes.slice(0, 3).map((theme, i) => (
-                                <span key={i} className="bg-background border border-white/5 text-foreground px-3 py-1.5 rounded-lg text-xs font-medium shadow-sm">
+                                <span key={i} className="bg-[#111116] border border-white/10 text-white px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest">
                                   {theme}
                                 </span>
                               ))}
                               {winThemes.length > 3 && (
-                                <span className="bg-background-secondary border border-white/5 text-foreground-muted px-3 py-1.5 rounded-lg text-xs font-medium">
+                                <span className="bg-[#0A0A0A] border border-white/10 text-foreground-muted px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest">
                                   +{winThemes.length - 3} more
                                 </span>
                               )}
@@ -558,11 +561,11 @@ export function ProposalWizard() {
                           </div>
                           
                           <div>
-                            <div className="text-xs font-bold text-foreground-muted uppercase tracking-wider mb-2">Key Differentiators</div>
+                            <div className="text-[10px] font-bold text-foreground-muted uppercase tracking-widest mb-2">Key Differentiators</div>
                             <ul className="space-y-2">
                               {differentiators.slice(0, 2).map((diff, i) => (
-                                <li key={i} className="flex items-start gap-3 text-sm text-foreground-subtle bg-background/50 p-2.5 rounded-lg border border-white/5/50">
-                                  <div className="w-1.5 h-1.5 rounded-full bg-electric mt-2 shrink-0" />
+                                <li key={i} className="flex items-start gap-3 text-[10px] uppercase tracking-widest font-bold text-foreground-subtle bg-[#111116] p-2.5 border border-white/10 font-mono">
+                                  <div className="w-1.5 h-1.5 bg-[#8b5cf6] mt-2 shrink-0" />
                                   <span className="leading-relaxed">{diff}</span>
                                 </li>
                               ))}
@@ -573,8 +576,8 @@ export function ProposalWizard() {
                         <div className="space-y-6 animate-in fade-in slide-in-from-top-2 duration-300">
                           <div className="space-y-3">
                             <div className="flex items-center justify-between">
-                              <label className="text-sm font-bold text-foreground">Win Themes</label>
-                              <button className="text-xs font-bold text-electric hover:underline flex items-center gap-1">
+                              <label className="text-[10px] font-bold uppercase tracking-widest text-white">Win Themes</label>
+                              <button className="text-[10px] font-bold uppercase tracking-widest text-[#c084fc] hover:text-white transition-colors flex items-center gap-1">
                                 <Plus size={14} /> Add Theme
                               </button>
                             </div>
@@ -589,11 +592,11 @@ export function ProposalWizard() {
                                       newThemes[i] = e.target.value;
                                       setWinThemes(newThemes);
                                     }}
-                                    className="flex-1 bg-background border border-white/5 rounded-lg px-3 py-2 text-sm text-foreground focus:outline-none focus:border-electric"
+                                    className="flex-1 bg-[#111116] border border-white/10 px-3 py-2 text-[10px] uppercase tracking-widest font-bold text-white focus:outline-none focus:border-[#8b5cf6] font-mono"
                                   />
                                   <button 
                                     onClick={() => setWinThemes(prev => prev.filter((_, index) => index !== i))}
-                                    className="p-2 text-foreground-muted hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors"
+                                    className="p-2 text-foreground-muted hover:text-red-400 hover:bg-red-400/10 transition-colors"
                                   >
                                     <X size={16} />
                                   </button>
@@ -604,8 +607,8 @@ export function ProposalWizard() {
 
                           <div className="space-y-3">
                             <div className="flex items-center justify-between">
-                              <label className="text-sm font-bold text-foreground">Key Differentiators</label>
-                              <button className="text-xs font-bold text-electric hover:underline flex items-center gap-1">
+                              <label className="text-[10px] font-bold uppercase tracking-widest text-white">Key Differentiators</label>
+                              <button className="text-[10px] font-bold uppercase tracking-widest text-[#c084fc] hover:text-white transition-colors flex items-center gap-1">
                                 <Plus size={14} /> Add Differentiator
                               </button>
                             </div>
@@ -619,11 +622,11 @@ export function ProposalWizard() {
                                       newDiffs[i] = e.target.value;
                                       setDifferentiators(newDiffs);
                                     }}
-                                    className="flex-1 min-h-[60px] bg-background border border-white/5 rounded-lg px-3 py-2 text-sm text-foreground focus:outline-none focus:border-electric resize-y"
+                                    className="flex-1 min-h-[60px] bg-[#111116] border border-white/10 px-3 py-2 text-[10px] uppercase tracking-widest font-bold text-white focus:outline-none focus:border-[#8b5cf6] resize-y font-mono"
                                   />
                                   <button 
                                     onClick={() => setDifferentiators(prev => prev.filter((_, index) => index !== i))}
-                                    className="p-2 mt-1 text-foreground-muted hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors"
+                                    className="p-2 mt-1 text-foreground-muted hover:text-red-400 hover:bg-red-400/10 transition-colors"
                                   >
                                     <X size={16} />
                                   </button>
@@ -638,15 +641,15 @@ export function ProposalWizard() {
 
                   {/* Document Setup */}
                   <div className="space-y-5">
-                    <h3 className="text-lg font-bold text-foreground border-b border-white/5 pb-2">Document Setup</h3>
+                    <h3 className="text-[10px] font-bold uppercase tracking-widest text-white border-b border-white/10 pb-2">Document Setup</h3>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-3">
-                        <label className="text-sm font-bold text-foreground">Template</label>
+                        <label className="text-[10px] font-bold uppercase tracking-widest text-foreground-muted">Template</label>
                         <select 
                           value={solicitationType}
                           onChange={(e) => setSolicitationType(e.target.value)}
-                          className="w-full bg-background-secondary border border-white/5 hover:border-white/10 transition-colors rounded-xl px-4 py-3 text-sm text-foreground focus:outline-none focus:border-electric transition-colors"
+                          className="w-full bg-[#111116] border border-white/10 hover:border-white/20 px-4 py-3 text-[10px] uppercase tracking-widest font-bold text-white focus:outline-none focus:border-[#8b5cf6] transition-colors font-mono"
                         >
                           <option>Standard RFP Response</option>
                           <option>Executive Proposal</option>
@@ -656,11 +659,11 @@ export function ProposalWizard() {
                       </div>
 
                       <div className="space-y-3">
-                        <label className="text-sm font-bold text-foreground">Voice & Tone</label>
+                        <label className="text-[10px] font-bold uppercase tracking-widest text-foreground-muted">Voice & Tone</label>
                         <select 
                           value={tone}
                           onChange={(e) => setTone(e.target.value)}
-                          className="w-full bg-background-secondary border border-white/5 hover:border-white/10 transition-colors rounded-xl px-4 py-3 text-sm text-foreground focus:outline-none focus:border-electric transition-colors"
+                          className="w-full bg-[#111116] border border-white/10 hover:border-white/20 px-4 py-3 text-[10px] uppercase tracking-widest font-bold text-white focus:outline-none focus:border-[#8b5cf6] transition-colors font-mono"
                         >
                           {TONES.map(t => (
                             <option key={t.id} value={t.id}>{t.label}</option>
@@ -671,15 +674,15 @@ export function ProposalWizard() {
                   </div>
 
                   {/* Included Sections */}
-                  <div className="rounded-xl border border-white/5 bg-background-secondary p-6">
+                  <div className="border border-white/10 bg-[#0A0A0A] p-6">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                       <div>
-                        <h3 className="text-lg font-bold text-foreground">Included Sections</h3>
-                        <p className="text-sm text-foreground-muted mt-1">
+                        <h3 className="text-[10px] font-bold uppercase tracking-widest text-white">Included Sections</h3>
+                        <p className="text-[10px] font-mono text-foreground-muted mt-1">
                           Auto-configured based on RFP requirements. Uncheck to exclude sections from generation.
                         </p>
                       </div>
-                      <span className="text-sm font-bold text-electric bg-electric/10 px-4 py-2 rounded-full whitespace-nowrap">
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-[#c084fc] bg-[#8b5cf6]/10 px-4 py-2 whitespace-nowrap border border-[#8b5cf6]/20">
                         {selectedSections.length} Selected
                       </span>
                     </div>
@@ -689,10 +692,10 @@ export function ProposalWizard() {
                         <label 
                           key={section.id} 
                           className={cn(
-                            "flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all",
+                            "flex items-center gap-3 p-4 border cursor-pointer transition-all",
                             selectedSections.includes(section.id)
-                              ? "bg-background border-electric/40 shadow-sm"
-                              : "bg-background/40 border-white/5 opacity-70 hover:opacity-100 hover:border-foreground-subtle"
+                              ? "bg-[#111116] border-[#8b5cf6]/40"
+                              : "bg-[#0A0A0A] border-white/10 opacity-70 hover:opacity-100 hover:border-white/20"
                           )}
                         >
                           <input 
@@ -703,17 +706,17 @@ export function ProposalWizard() {
                                 prev.includes(section.id) ? prev.filter(s => s !== section.id) : [...prev, section.id]
                               )
                             }}
-                            className="rounded border-white/5 text-electric focus:ring-electric bg-background w-5 h-5 shrink-0"
+                            className="border-white/10 text-[#8b5cf6] focus:ring-[#8b5cf6] bg-[#111116] w-5 h-5 shrink-0"
                           />
                           <div className="flex-1 min-w-0 flex items-center justify-between gap-4">
                             <div className="flex flex-col">
-                              <span className="text-sm font-bold text-foreground">{section.label}</span>
+                              <span className="text-[10px] font-bold uppercase tracking-widest text-white">{section.label}</span>
                               {section.desc && (
-                                <span className="text-xs text-foreground-muted mt-0.5">{section.desc}</span>
+                                <span className="text-[10px] font-mono text-foreground-muted mt-0.5">{section.desc}</span>
                               )}
                             </div>
                             {(section.type === 'required' || section.type === 'rfp_required') && (
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-500 shrink-0 bg-amber-500/10 px-2.5 py-1 rounded-full">Required</span>
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-500 shrink-0 bg-amber-500/10 px-2.5 py-1 border border-amber-500/20">Required</span>
                             )}
                           </div>
                         </label>
@@ -728,44 +731,44 @@ export function ProposalWizard() {
             {currentStep === 4 && (
               <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 h-full flex flex-col pb-20">
                 <div>
-                  <h2 className="text-2xl font-display font-bold text-foreground">Generate Proposal</h2>
-                  <p className="text-foreground-muted mt-2">IntentBid is now writing the proposal sections concurrently.</p>
+                  <h2 className="text-sm uppercase tracking-widest font-bold text-white uppercase tracking-tight">Generate Proposal</h2>
+                  <p className="text-[10px] font-mono text-foreground-muted mt-2 uppercase tracking-widest">IntentBid is now writing the proposal sections concurrently.</p>
                 </div>
                 
                 {!isGenerating && Object.keys(generationProgress).length === 0 ? (
-                  <div className="flex-1 flex flex-col items-center justify-center border-2 border-dashed border-white/5 hover:border-white/10 transition-colors rounded-2xl bg-background-secondary/50 p-12 text-center mt-4">
+                  <div className="flex-1 flex flex-col items-center justify-center border border-white/10 hover:border-white/20 transition-colors bg-[#0A0A0A] p-12 text-center mt-4">
                     <div className="relative mb-8">
-                      <div className="absolute inset-0 bg-electric/20 blur-2xl rounded-full" />
-                      <div className="relative bg-background border border-electric/30 w-24 h-24 rounded-2xl flex items-center justify-center shadow-xl shadow-electric/10">
-                        <Sparkles className="w-10 h-10 text-electric" />
+                      <div className="absolute inset-0 bg-[#8b5cf6]/20 blur-2xl" />
+                      <div className="relative bg-[#111116] border border-[#8b5cf6]/30 w-24 h-24 flex items-center justify-center shadow-[0_0_30px_rgba(139,92,246,0.15)]">
+                        <Sparkles className="w-10 h-10 text-[#c084fc]" />
                       </div>
                     </div>
-                    <h3 className="text-2xl font-display font-bold text-foreground mb-3">Ready to Draft Your Proposal</h3>
-                    <p className="text-foreground-muted max-w-lg mb-8 leading-relaxed">
-                      Our AI will now draft <strong className="text-foreground">{selectedSections.length} sections</strong> using the <strong className="text-foreground">{solicitationType}</strong> template, matching a <strong className="text-foreground">{TONES.find(t => t.id === tone)?.label?.toLowerCase() || 'professional'}</strong> tone, and weaving in your <strong className="text-foreground">{winThemes.length} win themes</strong>.
+                    <h3 className="text-sm uppercase tracking-widest font-bold text-white mb-3 uppercase tracking-tight">Ready to Draft Your Proposal</h3>
+                    <p className="text-[10px] font-mono text-foreground-muted max-w-lg mb-8 leading-relaxed uppercase tracking-widest">
+                      Our AI will now draft <strong className="text-white">{selectedSections.length} sections</strong> using the <strong className="text-white">{solicitationType}</strong> template, matching a <strong className="text-white">{TONES.find(t => t.id === tone)?.label?.toLowerCase() || 'professional'}</strong> tone, and weaving in your <strong className="text-white">{winThemes.length} win themes</strong>.
                     </p>
                     <button 
                       onClick={startGeneration}
-                      className="bg-white hover:bg-gray-100 text-black px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] hover:-translate-y-0.5 flex items-center gap-3 active:scale-95"
+                      className="bg-white hover:bg-gray-200 text-black px-8 py-4 font-bold text-[10px] uppercase tracking-widest transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] flex items-center gap-3 active:scale-95"
                     >
-                      <Play size={20} className="fill-current" />
+                      <Play size={16} className="fill-current" />
                       Start AI Generation
                     </button>
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 min-h-[500px] mt-4">
                     {/* Left: Progress List */}
-                    <div className="lg:col-span-1 rounded-xl border border-white/5 bg-background-secondary p-5 flex flex-col">
+                    <div className="lg:col-span-1 border border-white/10 bg-[#0A0A0A] p-5 flex flex-col">
                       <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-sm font-bold text-foreground">Generation Status</h3>
-                        <span className="text-xs font-bold text-electric bg-electric/10 px-2.5 py-1 rounded-full">
+                        <h3 className="text-[10px] font-bold uppercase tracking-widest text-white">Generation Status</h3>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#c084fc] bg-[#8b5cf6]/10 px-2.5 py-1 border border-[#8b5cf6]/20">
                           {Object.values(generationProgress).filter(s => s === 'complete').length} / {Object.keys(generationProgress).length}
                         </span>
                       </div>
                       
-                      <div className="w-full bg-background-tertiary rounded-full h-1.5 mb-6 overflow-hidden">
+                      <div className="w-full bg-[#111116] h-1.5 mb-6 overflow-hidden border border-white/5">
                         <div 
-                          className="bg-electric h-full transition-all duration-500 ease-out" 
+                          className="bg-[#8b5cf6] h-full transition-all duration-500 ease-out" 
                           style={{ width: `${(Object.values(generationProgress).filter(s => s === 'complete').length / Math.max(1, Object.keys(generationProgress).length)) * 100}%` }}
                         />
                       </div>
@@ -773,24 +776,24 @@ export function ProposalWizard() {
                       <div className="space-y-2 overflow-y-auto pr-2 custom-scrollbar flex-1">
                         {Object.entries(generationProgress).map(([section, status]) => (
                           <div key={section} className={cn(
-                            "flex items-center gap-3 p-3 rounded-lg border transition-colors",
-                            status === 'generating' ? "bg-electric/5 border-electric/30" :
-                            status === 'complete' ? "bg-success/5 border-success/20" :
-                            "bg-background border-white/5"
+                            "flex items-center gap-3 p-3 border transition-colors",
+                            status === 'generating' ? "bg-[#8b5cf6]/5 border-[#8b5cf6]/30" :
+                            status === 'complete' ? "bg-emerald-500/5 border-emerald-500/20" :
+                            "bg-[#111116] border-white/5"
                           )}>
                             {status === 'complete' ? (
-                              <CheckCircle className="h-4 w-4 text-success shrink-0" />
+                              <CheckCircle className="h-4 w-4 text-emerald-500 shrink-0" />
                             ) : status === 'generating' ? (
-                              <Loader2 className="h-4 w-4 text-electric animate-spin shrink-0" />
+                              <Loader2 className="h-4 w-4 text-[#c084fc] animate-spin shrink-0" />
                             ) : status === 'failed' ? (
-                              <AlertCircle className="h-4 w-4 text-warning shrink-0" />
+                              <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />
                             ) : (
-                              <div className="h-4 w-4 rounded-full border-2 border-white/5 shrink-0" />
+                              <div className="h-4 w-4 border-2 border-white/10 shrink-0" />
                             )}
                             <span className={cn(
-                              "text-sm truncate",
-                              status === 'complete' ? "text-foreground font-medium" : 
-                              status === 'generating' ? "text-electric font-bold" : "text-foreground-muted"
+                              "text-[10px] font-mono uppercase tracking-widest truncate",
+                              status === 'complete' ? "text-white" : 
+                              status === 'generating' ? "text-[#c084fc]" : "text-foreground-muted"
                             )}>
                               {section}
                             </span>
@@ -800,35 +803,35 @@ export function ProposalWizard() {
                     </div>
 
                     {/* Right: Live Preview / Terminal */}
-                    <div className="lg:col-span-2 rounded-xl border border-white/5 bg-[#0D0D12] overflow-hidden flex flex-col relative">
-                      <div className="bg-[#1A1A24] border-b border-white/10 px-4 py-3 flex items-center gap-2">
+                    <div className="lg:col-span-2 border border-white/10 bg-[#050505] overflow-hidden flex flex-col relative">
+                      <div className="bg-[#0A0A0A] border-b border-white/10 px-4 py-3 flex items-center gap-2">
                         <div className="flex gap-1.5">
-                          <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                          <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-                          <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                          <div className="w-2.5 h-2.5 bg-red-500/80" />
+                          <div className="w-2.5 h-2.5 bg-amber-500/80" />
+                          <div className="w-2.5 h-2.5 bg-emerald-500/80" />
                         </div>
-                        <span className="text-xs text-white/40 font-mono ml-2">intentbid-ai-engine.log</span>
+                        <span className="text-[10px] uppercase tracking-widest text-white/40 font-mono ml-2">intentbid-ai-engine.log</span>
                       </div>
                       
-                      <div className="p-6 font-mono text-sm text-white/70 overflow-y-auto flex-1 custom-scrollbar space-y-6">
+                      <div className="p-6 font-mono text-[10px] uppercase tracking-widest text-white/70 overflow-y-auto flex-1 custom-scrollbar space-y-6">
                         {Object.entries(generationProgress).map(([section, status]) => {
                           if (status === 'pending') return null;
                           return (
                             <div key={section} className="animate-in fade-in slide-in-from-bottom-2">
-                              <div className="flex items-center gap-2 text-electric mb-2">
+                              <div className="flex items-center gap-2 text-[#c084fc] mb-2">
                                 <span className="text-white/30">{`[${new Date().toISOString().split('T')[1].split('.')[0]}]`}</span>
                                 <span>{`> Generating section: ${section}...`}</span>
                               </div>
                               {status === 'generating' && (
-                                <div className="pl-4 border-l-2 border-electric/30 ml-2 space-y-3 py-2">
-                                  <div className="h-2 bg-white/10 rounded w-3/4 animate-pulse" />
-                                  <div className="h-2 bg-white/10 rounded w-full animate-pulse" />
-                                  <div className="h-2 bg-white/10 rounded w-5/6 animate-pulse" />
-                                  <div className="h-2 bg-white/10 rounded w-1/2 animate-pulse" />
+                                <div className="pl-4 border-l border-[#8b5cf6]/30 ml-2 space-y-3 py-2">
+                                  <div className="h-1.5 bg-white/10 w-3/4 animate-pulse" />
+                                  <div className="h-1.5 bg-white/10 w-full animate-pulse" />
+                                  <div className="h-1.5 bg-white/10 w-5/6 animate-pulse" />
+                                  <div className="h-1.5 bg-white/10 w-1/2 animate-pulse" />
                                 </div>
                               )}
                               {status === 'complete' && (
-                                <div className="flex items-center gap-2 text-success">
+                                <div className="flex items-center gap-2 text-emerald-500">
                                   <span className="text-white/30">{`[${new Date().toISOString().split('T')[1].split('.')[0]}]`}</span>
                                   <span>{`✓ Successfully drafted ${section} (2.4s)`}</span>
                                 </div>
@@ -845,20 +848,20 @@ export function ProposalWizard() {
 
                       {/* Success Overlay */}
                       {!isGenerating && Object.values(generationProgress).length > 0 && Object.values(generationProgress).every(s => s === 'complete') && (
-                        <div className="absolute inset-0 bg-[#0D0D12]/80 backdrop-blur-sm flex items-center justify-center animate-in fade-in duration-500 z-10">
-                          <div className="bg-background border border-white/5 hover:border-white/10 transition-colors rounded-2xl p-8 text-center max-w-md shadow-2xl">
-                            <div className="w-16 h-16 bg-success/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                              <CheckCircle className="w-8 h-8 text-success" />
+                        <div className="absolute inset-0 bg-[#050505]/90 backdrop-blur-sm flex items-center justify-center animate-in fade-in duration-500 z-10">
+                          <div className="bg-[#0A0A0A] border border-white/10 p-8 text-center max-w-md shadow-2xl">
+                            <div className="w-16 h-16 bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto mb-4">
+                              <CheckCircle className="w-8 h-8 text-emerald-500" />
                             </div>
-                            <h3 className="text-xl font-bold text-foreground mb-2">Proposal Generated!</h3>
-                            <p className="text-foreground-muted text-sm mb-6">
+                            <h3 className="text-base uppercase tracking-widest font-bold text-white mb-2">Proposal Generated!</h3>
+                            <p className="text-[10px] font-mono text-foreground-muted mb-6 uppercase tracking-widest">
                               All sections have been drafted successfully. You can now review, edit, and collaborate in the workspace.
                             </p>
                             <button 
                               onClick={() => navigate('/workspace')}
-                              className="w-full bg-white hover:bg-gray-100 text-black px-6 py-3 rounded-xl font-bold transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                              className="w-full bg-white hover:bg-gray-200 text-black px-6 py-3 font-bold text-[10px] uppercase tracking-widest transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] flex items-center justify-center gap-2"
                             >
-                              Go to Workspace <ArrowRight size={18} />
+                              Go to Workspace <ArrowRight size={16} />
                             </button>
                           </div>
                         </div>
@@ -873,11 +876,11 @@ export function ProposalWizard() {
         </div>
 
         {/* Bottom Action Bar */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 bg-background-secondary border-t border-white/5 flex justify-between items-center z-10">
+        <div className="absolute bottom-0 left-0 right-0 p-6 bg-[#0A0A0A] border-t border-white/10 flex justify-between items-center z-10">
           <button 
             onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
             disabled={currentStep === 0 || isExtracting || isGenerating}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-foreground-muted hover:text-foreground disabled:opacity-50 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-foreground-muted hover:text-white disabled:opacity-50 transition-colors"
           >
             <ArrowLeft size={16} />
             Back
@@ -887,7 +890,7 @@ export function ProposalWizard() {
             {currentStep === 1 && (
               <button 
                 onClick={handleQuickStart}
-                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-electric hover:text-electric-dim transition-colors"
+                className="flex items-center gap-2 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-[#c084fc] hover:text-white transition-colors"
               >
                 Quick Start (Skip to Generate)
               </button>
@@ -897,7 +900,7 @@ export function ProposalWizard() {
               <button 
                 onClick={startExtraction}
                 disabled={isExtracting || (entryMethod === 'upload' && uploadedFiles.length === 0)}
-                className="flex items-center gap-2 bg-white hover:bg-gray-100 text-black px-6 py-2.5 rounded-xl text-sm font-bold transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+                className="flex items-center gap-2 bg-white hover:bg-gray-200 text-black px-6 py-2.5 text-[10px] font-bold uppercase tracking-widest transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isExtracting ? (
                   <><Loader2 size={16} className="animate-spin" /> Processing...</>
@@ -909,7 +912,7 @@ export function ProposalWizard() {
               <button 
                 disabled={isGenerating || Object.keys(generationProgress).length === 0 || Object.values(generationProgress).some(s => s !== 'complete')}
                 onClick={() => navigate('/workspace')}
-                className="flex items-center gap-2 bg-white hover:bg-gray-100 text-black px-6 py-2.5 rounded-xl text-sm font-bold transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+                className="flex items-center gap-2 bg-white hover:bg-gray-200 text-black px-6 py-2.5 text-[10px] font-bold uppercase tracking-widest transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Go to Workspace <ArrowRight size={16} />
               </button>
@@ -917,7 +920,7 @@ export function ProposalWizard() {
               <button 
                 onClick={() => setCurrentStep(Math.min(STEPS.length - 1, currentStep + 1))}
                 disabled={currentStep === 3 && selectedSections.length === 0}
-                className="flex items-center gap-2 bg-white hover:bg-gray-100 text-black px-6 py-2.5 rounded-xl text-sm font-bold transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] hover:-translate-y-0.5 disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+                className="flex items-center gap-2 bg-white hover:bg-gray-200 text-black px-6 py-2.5 text-[10px] font-bold uppercase tracking-widest transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {currentStep === 2 ? 'Bid & Continue' : 'Continue'} <ArrowRight size={16} />
               </button>

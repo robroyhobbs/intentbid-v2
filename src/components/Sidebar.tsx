@@ -10,7 +10,8 @@ import {
   Target,
   Plus,
   Zap,
-  CheckCircle2
+  CheckCircle2,
+  Briefcase
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -19,6 +20,7 @@ export function Sidebar() {
 
   const navItems = [
     { name: "Dashboard", href: "/proposals", icon: LayoutDashboard },
+    { name: "Managed Delivery", href: "/managed-delivery", icon: Briefcase },
     { name: "Business Profile", href: "/business-profile", icon: BookOpen },
     { name: "Intelligence", href: "/intelligence", icon: Globe },
     { name: "FOIA", href: "/foia", icon: Library },
@@ -35,21 +37,21 @@ export function Sidebar() {
       <div className="flex flex-col p-6 border-b border-white/5">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-[#8b5cf6] to-[#6d28d9] flex items-center justify-center text-white shadow-[0_0_20px_rgba(139,92,246,0.4)]">
+            <div className="h-10 w-10 bg-[#111116] border border-white/10 flex items-center justify-center text-white">
               <Target size={22} strokeWidth={2.5} />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-display font-bold tracking-tight text-white">IntentBid</span>
-              <span className="text-[10px] font-bold tracking-widest text-[#8b5cf6] uppercase">Intelligence</span>
+              <span className="text-base uppercase tracking-widest font-bold tracking-tight text-white">IntentBid</span>
+              <span className="text-[10px] font-mono tracking-widest text-foreground-muted uppercase">Intelligence</span>
             </div>
           </div>
         </div>
         
         <Link 
           to="/proposals/new"
-          className="flex items-center justify-center gap-2 w-full bg-white text-black font-bold py-3 px-4 rounded-xl hover:bg-gray-100 transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] hover:-translate-y-0.5"
+          className="flex items-center justify-center gap-2 w-full bg-white text-black text-[10px] font-bold uppercase tracking-widest py-3 px-4 hover:bg-gray-200 transition-all"
         >
-          <Plus size={18} strokeWidth={2.5} />
+          <Plus size={16} strokeWidth={2.5} />
           New Proposal
         </Link>
       </div>
@@ -62,20 +64,20 @@ export function Sidebar() {
               key={item.name}
               to={item.href}
               className={cn(
-                "flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-200 group relative",
+                "flex items-center gap-3 px-3 py-3 text-[10px] uppercase tracking-widest font-bold transition-all duration-200 group relative border border-transparent",
                 isActive 
-                  ? "text-white bg-white/5" 
+                  ? "text-white bg-[#111116] border-white/10" 
                   : "text-foreground-muted hover:bg-white/[0.02] hover:text-white"
               )}
             >
               {isActive && (
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#8b5cf6] rounded-r-full shadow-[0_0_10px_rgba(139,92,246,0.5)]" />
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#8b5cf6]" />
               )}
-              <item.icon size={20} className={cn(
+              <item.icon size={18} className={cn(
                 "transition-colors",
                 isActive ? "text-[#c084fc]" : "text-foreground-muted group-hover:text-foreground-subtle"
               )} />
-              <span>{item.name}</span>
+              <span className={isActive ? "font-bold" : ""}>{item.name}</span>
             </Link>
           );
         })}
@@ -86,9 +88,9 @@ export function Sidebar() {
           <Link
             key={item.name}
             to={item.href}
-            className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-foreground-muted hover:bg-white/[0.02] hover:text-white transition-all duration-200 group"
+            className="flex items-center gap-3 px-3 py-3 text-[10px] uppercase tracking-widest font-bold text-foreground-muted hover:bg-white/[0.02] hover:text-white transition-all duration-200 group"
           >
-            <item.icon size={20} className="text-foreground-muted group-hover:text-foreground-subtle transition-colors" />
+            <item.icon size={18} className="text-foreground-muted group-hover:text-foreground-subtle transition-colors" />
             <span>{item.name}</span>
           </Link>
         ))}

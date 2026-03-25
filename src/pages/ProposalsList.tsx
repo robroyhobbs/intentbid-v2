@@ -1,131 +1,202 @@
-import { FileText, Plus, Search, Filter, ArrowUpRight, Clock, CheckCircle2, AlertCircle } from 'lucide-react';
+import { 
+  FileText, 
+  Plus, 
+  Search, 
+  Filter, 
+  ArrowUpRight, 
+  CheckCircle2, 
+  AlertCircle, 
+  Clock, 
+  Upload, 
+  Activity, 
+  Building2,
+  ChevronRight,
+  MoreHorizontal,
+  Terminal
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export function ProposalsList() {
   const proposals = [
-    { id: 'PRP-001', title: 'Department of Defense Cloud Migration', client: 'DoD', status: 'Draft', dueDate: '2026-04-15', score: 85, value: '$12.5M' },
-    { id: 'PRP-002', title: 'State Healthcare Portal Modernization', client: 'State of CA', status: 'Review', dueDate: '2026-04-01', score: 92, value: '$8.2M' },
-    { id: 'PRP-003', title: 'Financial Services Data Lake', client: 'GlobalBank', status: 'Submitted', dueDate: '2026-03-10', score: 78, value: '$4.1M' },
+    { id: 'PRP-001', title: 'Department of Defense Cloud Migration', client: 'DoD', status: 'Draft', dueDate: '2026-04-15', daysLeft: 23, score: 85, value: '$12.5M' },
+    { id: 'PRP-002', title: 'State Healthcare Portal Modernization', client: 'State of CA', status: 'Review', dueDate: '2026-04-01', daysLeft: 9, score: 92, value: '$8.2M' },
+    { id: 'PRP-003', title: 'Financial Services Data Lake', client: 'GlobalBank', status: 'Submitted', dueDate: '2026-03-10', daysLeft: 0, score: 78, value: '$4.1M' },
+  ];
+
+  const activities = [
+    { id: 1, user: 'Sarah J.', action: 'approved section', target: 'Executive Summary', time: '10:42 AM' },
+    { id: 2, user: 'AI Co-Pilot', action: 'generated', target: 'Compliance Matrix', time: '09:15 AM' },
+    { id: 3, user: 'Mike T.', action: 'uploaded', target: 'Security Addendum.pdf', time: 'Yesterday' },
+    { id: 4, user: 'System', action: 'flagged risk in', target: 'Pricing Volume', time: 'Yesterday' },
   ];
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8">
+    <div className="max-w-7xl mx-auto space-y-8 relative z-10">
+      {/* Subtle Noise Texture Overlay for the Dashboard */}
+      <div className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-[0.02]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
+
       {/* Header */}
-      <div className="flex items-end justify-between">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 relative z-10">
         <div>
-          <h1 className="text-3xl font-display font-bold tracking-tight text-white mb-2">Dashboard</h1>
-          <p className="text-sm text-foreground-muted">Manage your active bids and solicitations.</p>
+          <h1 className="text-base uppercase tracking-widest font-bold tracking-tight text-white mb-2">Welcome back, Matt</h1>
+          <p className="text-[10px] uppercase tracking-widest font-bold text-foreground-muted font-mono tracking-tight">SYSTEM.STATUS: <span className="text-emerald-400">ONLINE</span> // {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase()}</p>
         </div>
-        <Link 
-          to="/proposals/new" 
-          className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm font-bold text-black hover:bg-gray-100 transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] hover:-translate-y-0.5"
-        >
-          <Plus size={18} strokeWidth={2.5} />
-          New Proposal
-        </Link>
+        <div className="flex items-center gap-3">
+          <button className="inline-flex items-center gap-2 rounded-none border border-white/20 bg-[#050505] px-4 py-2 text-[10px] uppercase tracking-widest font-bold font-bold uppercase tracking-widest text-white hover:bg-white/10 transition-all">
+            <Upload size={14} />
+            Import RFP
+          </button>
+          <Link 
+            to="/proposals/new" 
+            className="inline-flex items-center gap-2 rounded-none bg-white px-5 py-2 text-[10px] uppercase tracking-widest font-bold font-bold uppercase tracking-widest text-black hover:bg-gray-200 transition-all"
+          >
+            <Plus size={16} strokeWidth={2.5} />
+            New Proposal
+          </Link>
+        </div>
       </div>
 
-      {/* Metrics Row */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Metrics Row - Technical / Brutalist Style */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-white/10 bg-[#0A0A0A] relative z-10">
         {[
-          { label: 'Active Bids', value: '12', trend: '+2 this week', icon: FileText, color: 'text-blue-400', bg: 'bg-blue-400/10' },
-          { label: 'Win Rate (YTD)', value: '68%', trend: '+4% vs last year', icon: ArrowUpRight, color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
-          { label: 'Pipeline Value', value: '$42.8M', trend: '+$12M this quarter', icon: CheckCircle2, color: 'text-[#c084fc]', bg: 'bg-[#c084fc]/10' },
-        ].map((metric) => (
-          <div key={metric.label} className="p-6 rounded-2xl border border-white/5 hover:border-white/10 transition-colors bg-[#0A0A0A] shadow-lg relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-40 transition-opacity group-hover:scale-110 duration-500">
-              <metric.icon className={`w-16 h-16 ${metric.color}`} />
+          { label: 'Active Bids', value: '12', trend: '+2 this week', icon: FileText },
+          { label: 'Win Rate (YTD)', value: '68%', trend: '+4% vs last year', icon: ArrowUpRight },
+          { label: 'Pipeline Value', value: '$42.8M', trend: '+$12.4M this quarter', icon: CheckCircle2 },
+        ].map((metric, idx) => (
+          <div key={metric.label} className={`p-6 relative group ${idx !== 2 ? 'border-b md:border-b-0 md:border-r border-white/10' : ''}`}>
+            <div className="flex justify-between items-start mb-6">
+              <span className="text-[10px] uppercase tracking-widest text-foreground-muted font-bold">{metric.label}</span>
+              <metric.icon size={14} className="text-foreground-subtle" />
             </div>
-            <div className={`w-10 h-10 rounded-xl ${metric.bg} flex items-center justify-center mb-4`}>
-              <metric.icon className={`w-5 h-5 ${metric.color}`} />
+            <h3 className="text-2xl uppercase tracking-widest font-bold text-white tracking-tight">{metric.value}</h3>
+            <div className="mt-6 pt-4 border-t border-dashed border-white/10">
+              <p className="text-[10px] font-mono text-foreground-subtle uppercase tracking-wider">
+                {metric.trend}
+              </p>
             </div>
-            <p className="text-sm font-medium text-foreground-muted mb-1">{metric.label}</p>
-            <h3 className="text-3xl font-display font-bold text-white mb-2">{metric.value}</h3>
-            <p className="text-xs font-medium text-foreground-subtle">{metric.trend}</p>
           </div>
         ))}
       </div>
 
-      {/* List Section */}
-      <div className="rounded-2xl border border-white/5 bg-[#0A0A0A] shadow-xl overflow-hidden">
-        {/* Toolbar */}
-        <div className="p-4 border-b border-white/5 flex items-center gap-4 bg-white/[0.02]">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground-muted w-4 h-4" />
-            <input 
-              type="text" 
-              placeholder="Search proposals..." 
-              className="w-full rounded-xl border border-white/10 bg-[#111116] pl-10 pr-4 py-2.5 text-sm text-foreground placeholder-foreground-muted focus:border-[#8b5cf6] focus:ring-1 focus:ring-[#8b5cf6] focus:outline-none transition-all"
-            />
+      {/* Main Content Split */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10">
+        
+        {/* Left: Active Proposals (Takes up 2 columns) */}
+        <div className="lg:col-span-2 space-y-4">
+          <div className="flex items-center justify-between border-b border-white/10 pb-4">
+            <h2 className="text-[10px] uppercase tracking-widest font-bold font-bold uppercase tracking-widest text-white flex items-center gap-2">
+              <Terminal size={14} className="text-[#c084fc]" />
+              Active Proposals
+            </h2>
+            <div className="flex items-center gap-2">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground-muted w-3.5 h-3.5" />
+                <input 
+                  type="text" 
+                  placeholder="SEARCH..." 
+                  className="w-48 rounded-none border border-white/10 bg-[#050505] pl-9 pr-4 py-1 text-[10px] font-mono uppercase text-foreground placeholder-foreground-muted focus:border-[#8b5cf6] focus:outline-none transition-all"
+                />
+              </div>
+              <button className="inline-flex items-center justify-center w-7 h-7 border border-white/10 bg-[#050505] text-foreground hover:bg-white/10 transition-colors">
+                <Filter size={12} />
+              </button>
+            </div>
           </div>
-          <button className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-[#111116] px-4 py-2.5 text-sm font-medium text-foreground hover:bg-white/5 transition-colors">
-            <Filter size={16} />
-            Filter
-          </button>
-        </div>
+          
+          <div className="border border-white/10 bg-[#0A0A0A] divide-y divide-white/5">
+            {proposals.map((proposal) => (
+              <Link 
+                key={proposal.id}
+                to="/workspace"
+                className="flex flex-col md:flex-row md:items-center gap-4 p-4 hover:bg-white/[0.03] transition-colors group cursor-pointer"
+              >
+                {/* ID & Client */}
+                <div className="md:w-1/4 shrink-0">
+                  <div className="text-[10px] font-mono text-foreground-muted mb-1">{proposal.id}</div>
+                  <div className="text-[10px] uppercase tracking-widest font-bold text-white flex items-center gap-2">
+                    <Building2 size={14} className="text-foreground-subtle" />
+                    {proposal.client}
+                  </div>
+                </div>
 
-        {/* Table */}
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-white/5">
-            <thead className="bg-[#050505]">
-              <tr>
-                <th scope="col" className="px-6 py-4 text-left text-[10px] font-bold text-foreground-muted uppercase tracking-widest">Proposal</th>
-                <th scope="col" className="px-6 py-4 text-left text-[10px] font-bold text-foreground-muted uppercase tracking-widest">Client</th>
-                <th scope="col" className="px-6 py-4 text-left text-[10px] font-bold text-foreground-muted uppercase tracking-widest">Status</th>
-                <th scope="col" className="px-6 py-4 text-left text-[10px] font-bold text-foreground-muted uppercase tracking-widest">Due Date</th>
-                <th scope="col" className="px-6 py-4 text-left text-[10px] font-bold text-foreground-muted uppercase tracking-widest">Win Score</th>
-                <th scope="col" className="relative px-6 py-4"><span className="sr-only">Actions</span></th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-white/5">
-              {proposals.map((proposal) => (
-                <tr key={proposal.id} className="hover:bg-white/[0.02] transition-colors group">
-                  <td className="px-6 py-5 whitespace-nowrap">
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center shrink-0 border border-white/5 group-hover:border-white/10 transition-colors">
-                        <FileText className="h-5 w-5 text-foreground-muted" />
-                      </div>
-                      <div>
-                        <div className="text-sm font-bold text-white mb-0.5">{proposal.title}</div>
-                        <div className="text-xs text-foreground-muted font-mono">{proposal.id} • {proposal.value}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-5 whitespace-nowrap text-sm text-foreground-muted font-medium">{proposal.client}</td>
-                  <td className="px-6 py-5 whitespace-nowrap">
-                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider ${
-                      proposal.status === 'Draft' ? 'bg-orange-500/10 text-orange-400 border border-orange-500/20' :
-                      proposal.status === 'Review' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' :
-                      'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                {/* Title & Status */}
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-[10px] uppercase tracking-widest font-bold text-white truncate mb-2 group-hover:text-[#c084fc] transition-colors">{proposal.title}</h3>
+                  <div className="flex items-center gap-3">
+                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest border ${
+                      proposal.status === 'Draft' ? 'bg-orange-500/5 text-orange-400 border-orange-500/20' :
+                      proposal.status === 'Review' ? 'bg-blue-500/5 text-blue-400 border-blue-500/20' :
+                      'bg-emerald-500/5 text-emerald-400 border-emerald-500/20'
                     }`}>
-                      {proposal.status === 'Draft' && <Clock className="w-3 h-3" />}
-                      {proposal.status === 'Review' && <AlertCircle className="w-3 h-3" />}
-                      {proposal.status === 'Submitted' && <CheckCircle2 className="w-3 h-3" />}
+                      {proposal.status === 'Draft' && <Clock className="w-2.5 h-2.5" />}
+                      {proposal.status === 'Review' && <AlertCircle className="w-2.5 h-2.5" />}
+                      {proposal.status === 'Submitted' && <CheckCircle2 className="w-2.5 h-2.5" />}
                       {proposal.status}
                     </span>
-                  </td>
-                  <td className="px-6 py-5 whitespace-nowrap text-sm text-foreground-muted font-medium">{proposal.dueDate}</td>
-                  <td className="px-6 py-5 whitespace-nowrap">
-                    <div className="flex items-center gap-3">
-                      <div className="w-24 bg-white/5 rounded-full h-1.5 overflow-hidden border border-white/5">
-                        <div className="bg-[#c084fc] h-full rounded-full shadow-[0_0_10px_rgba(192,132,252,0.5)]" style={{ width: `${proposal.score}%` }}></div>
-                      </div>
-                      <span className="text-sm font-bold text-white">{proposal.score}</span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-5 whitespace-nowrap text-right text-sm font-medium">
-                    <Link 
-                      to={`/workspace`} 
-                      className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white font-medium transition-colors border border-white/5"
-                    >
-                      Open
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                    <span className="text-[10px] font-mono text-foreground-muted">
+                      DUE: {proposal.dueDate}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Score & Value */}
+                <div className="md:w-1/4 shrink-0 flex items-center justify-between md:justify-end gap-6">
+                  <div className="flex flex-col items-end gap-1">
+                    <div className="text-[9px] font-bold text-foreground-muted uppercase tracking-widest">Score</div>
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-white">{proposal.score}/100</div>
+                  </div>
+                  <div className="flex flex-col items-end gap-1">
+                    <div className="text-[9px] font-bold text-foreground-muted uppercase tracking-widest">Value</div>
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-white">{proposal.value}</div>
+                  </div>
+                  <ChevronRight size={16} className="text-foreground-muted group-hover:text-white transition-colors hidden md:block" />
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
+
+        {/* Right: Activity & Deadlines (Takes up 1 column) */}
+        <div className="space-y-6">
+          
+          {/* System Log */}
+          <div>
+            <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+              <h2 className="text-[10px] uppercase tracking-widest font-bold font-bold uppercase tracking-widest text-white flex items-center gap-2">
+                <Activity size={14} className="text-foreground-muted" />
+                System Log
+              </h2>
+            </div>
+            <div className="border border-white/10 bg-[#0A0A0A]">
+              <div className="divide-y divide-white/5">
+                {activities.map((act, i) => (
+                  <div key={i} className="flex gap-3 p-3 hover:bg-white/[0.02] transition-colors">
+                    <span className="font-mono text-[10px] text-foreground-subtle w-16 shrink-0 pt-0.5">{act.time}</span>
+                    <p className="text-[10px] uppercase tracking-widest font-bold text-foreground-muted leading-relaxed">
+                      <span className="font-bold text-white">{act.user}</span> {act.action} <span className="text-white">{act.target}</span>
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <button className="w-full p-3 text-[10px] font-bold uppercase tracking-widest text-foreground-muted hover:text-white hover:bg-white/5 transition-colors border-t border-white/10">
+                View Full Log
+              </button>
+            </div>
+          </div>
+
+          {/* Quick Help / Resources - Refined */}
+          <div className="border border-[#8b5cf6]/30 bg-[#8b5cf6]/5 p-5 relative">
+            <div className="absolute top-0 left-0 w-1 h-full bg-[#8b5cf6]"></div>
+            <h3 className="text-[10px] uppercase tracking-widest font-bold font-bold uppercase tracking-widest text-white mb-2">Knowledge Base Sync</h3>
+            <p className="text-[10px] uppercase tracking-widest font-bold text-foreground-muted mb-4 leading-relaxed">
+              AI generation quality depends on your evidence library. Ensure your past performance and corporate context are up to date.
+            </p>
+            <Link to="/knowledge-base" className="inline-flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold font-bold text-[#c084fc] hover:text-white transition-colors">
+              Update Knowledge Base <ArrowUpRight size={14} />
+            </Link>
+          </div>
+        </div>
+
       </div>
     </div>
   );
