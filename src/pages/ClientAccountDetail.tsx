@@ -90,55 +90,88 @@ export function ClientAccountDetail() {
 
 function SettingsTab({ clientName }: { clientName: string }) {
   return (
-    <div className="bg-[#0A0A0A] border border-white/10 p-8">
-      <div className="mb-8 border-b border-white/10 pb-4">
-        <h2 className="text-[10px] uppercase tracking-widest font-bold font-bold uppercase tracking-widest text-white flex items-center gap-2">
-          <Terminal size={14} className="text-[#c084fc]" />
-          Account Settings
-        </h2>
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="lg:col-span-2 space-y-6">
+        <div className="bg-[#0A0A0A] border border-white/10 p-8">
+          <div className="mb-8 border-b border-white/10 pb-4">
+            <h2 className="text-[10px] uppercase tracking-widest font-bold text-white flex items-center gap-2">
+              <Terminal size={14} className="text-[#c084fc]" />
+              Account Settings
+            </h2>
+          </div>
+
+          <div className="space-y-6 max-w-3xl">
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold uppercase tracking-widest text-foreground-muted">Account Name</label>
+              <input 
+                type="text" 
+                defaultValue={clientName}
+                className="w-full bg-[#111116] border border-white/10 rounded-none px-4 py-2 text-[10px] uppercase tracking-widest font-bold font-mono text-white focus:border-[#8b5cf6] outline-none transition-all"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-foreground-muted">Status</label>
+                <div className="relative">
+                  <select className="w-full bg-[#111116] border border-white/10 rounded-none px-4 py-2 text-[10px] uppercase tracking-widest font-bold font-mono text-white appearance-none focus:border-[#8b5cf6] outline-none cursor-pointer">
+                    <option>ACTIVE</option>
+                    <option>PROVISIONING</option>
+                    <option>PAUSED</option>
+                  </select>
+                  <ChevronDown size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground-muted pointer-events-none" />
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 p-4 border border-white/10 bg-[#111116] mt-6">
+                <div className="relative flex items-center justify-center">
+                  <input type="checkbox" className="peer sr-only" />
+                  <div className="w-4 h-4 border border-white/20 bg-[#0A0A0A] peer-checked:bg-[#8b5cf6] peer-checked:border-[#8b5cf6] transition-colors"></div>
+                </div>
+                <span className="text-[10px] uppercase tracking-widest font-bold text-white">Require checkpoints by default on newly assigned work.</span>
+              </div>
+            </div>
+
+            <div className="pt-6 flex items-center gap-4 border-t border-white/10 mt-8">
+              <button className="flex items-center gap-2 bg-white text-black text-[10px] font-bold uppercase tracking-widest py-2 px-6 hover:bg-gray-200 transition-all">
+                <Save size={14} />
+                Save Settings
+              </button>
+              <button className="flex items-center gap-2 bg-transparent border border-red-500/30 text-red-400 text-[10px] font-bold uppercase tracking-widest py-2 px-6 hover:bg-red-500/10 transition-all">
+                <Archive size={14} />
+                Archive Account
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="space-y-6 max-w-3xl">
-        <div className="space-y-2">
-          <label className="text-[10px] font-bold uppercase tracking-widest text-foreground-muted">Account Name</label>
-          <input 
-            type="text" 
-            defaultValue={clientName}
-            className="w-full bg-[#111116] border border-white/10 rounded-none px-4 py-2 text-[10px] uppercase tracking-widest font-bold font-mono text-white focus:border-[#8b5cf6] outline-none transition-all"
-          />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <label className="text-[10px] font-bold uppercase tracking-widest text-foreground-muted">Status</label>
-            <div className="relative">
-              <select className="w-full bg-[#111116] border border-white/10 rounded-none px-4 py-2 text-[10px] uppercase tracking-widest font-bold font-mono text-white appearance-none focus:border-[#8b5cf6] outline-none cursor-pointer">
-                <option>ACTIVE</option>
-                <option>PROVISIONING</option>
-                <option>PAUSED</option>
-              </select>
-              <ChevronDown size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground-muted pointer-events-none" />
+      <div className="space-y-6">
+        <div className="bg-[#8b5cf6]/5 border border-[#8b5cf6]/20 p-6 relative">
+          <div className="absolute top-0 left-0 w-1 h-full bg-[#8b5cf6]"></div>
+          <h3 className="text-[10px] uppercase tracking-widest font-bold text-white flex items-center gap-2 mb-4">
+            <Terminal size={14} className="text-[#c084fc]" />
+            AI Account Intelligence
+          </h3>
+          <div className="space-y-4">
+            <div>
+              <div className="text-[9px] font-bold uppercase tracking-widest text-[#c084fc] mb-1">Win Probability Trend</div>
+              <div className="text-2xl font-mono font-bold text-white">74% <span className="text-emerald-400 text-sm">↑ 12%</span></div>
+            </div>
+            <div className="border-t border-white/10 pt-4">
+              <div className="text-[9px] font-bold uppercase tracking-widest text-foreground-muted mb-2">Strategic Recommendations</div>
+              <ul className="space-y-3">
+                <li className="text-[10px] uppercase tracking-widest font-bold text-white flex gap-2">
+                  <span className="text-[#8b5cf6]">•</span>
+                  Emphasize past performance in cloud migration to counter competitor strengths.
+                </li>
+                <li className="text-[10px] uppercase tracking-widest font-bold text-white flex gap-2">
+                  <span className="text-[#8b5cf6]">•</span>
+                  Client responds well to detailed pricing breakdowns; ensure transparency in cost volumes.
+                </li>
+              </ul>
             </div>
           </div>
-
-          <div className="flex items-center gap-3 p-4 border border-white/10 bg-[#111116] mt-6">
-            <div className="relative flex items-center justify-center">
-              <input type="checkbox" className="peer sr-only" />
-              <div className="w-4 h-4 border border-white/20 bg-[#0A0A0A] peer-checked:bg-[#8b5cf6] peer-checked:border-[#8b5cf6] transition-colors"></div>
-            </div>
-            <span className="text-[10px] uppercase tracking-widest font-bold text-white">Require checkpoints by default on newly assigned work.</span>
-          </div>
-        </div>
-
-        <div className="pt-6 flex items-center gap-4 border-t border-white/10 mt-8">
-          <button className="flex items-center gap-2 bg-white text-black text-[10px] font-bold uppercase tracking-widest py-2 px-6 hover:bg-gray-200 transition-all">
-            <Save size={14} />
-            Save Settings
-          </button>
-          <button className="flex items-center gap-2 bg-transparent border border-red-500/30 text-red-400 text-[10px] font-bold uppercase tracking-widest py-2 px-6 hover:bg-red-500/10 transition-all">
-            <Archive size={14} />
-            Archive Account
-          </button>
         </div>
       </div>
     </div>

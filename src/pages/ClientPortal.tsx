@@ -190,8 +190,21 @@ export function ClientPortal() {
             {/* Modal Body */}
             <div className="flex-1 overflow-hidden flex flex-col md:flex-row">
               {/* Document Preview */}
-              <div className="flex-1 bg-[#111116] p-8 overflow-y-auto custom-scrollbar border-b md:border-b-0 md:border-r border-white/10">
-                <div className="max-w-2xl mx-auto bg-white text-black p-12 min-h-full shadow-2xl font-serif">
+              <div className="flex-1 bg-[#111116] p-8 overflow-y-auto custom-scrollbar border-b md:border-b-0 md:border-r border-white/10 flex flex-col gap-6">
+                
+                {/* AI Summary Banner */}
+                <div className="bg-[#8b5cf6]/10 border border-[#8b5cf6]/30 p-6 relative overflow-hidden shrink-0">
+                  <div className="absolute top-0 left-0 w-1 h-full bg-[#8b5cf6]"></div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <Terminal size={14} className="text-[#c084fc]" />
+                    <h3 className="text-[10px] uppercase tracking-widest font-bold text-white">AI Executive Brief</h3>
+                  </div>
+                  <p className="text-sm text-foreground-muted leading-relaxed">
+                    This draft focuses heavily on the zero-trust architecture and predictive maintenance capabilities, aligning with MDOT's stated priorities in Section C of the RFP. We have highlighted our CMMI Level 3 appraisal to strengthen the risk mitigation narrative.
+                  </p>
+                </div>
+
+                <div className="max-w-2xl mx-auto bg-white text-black p-12 min-h-full shadow-2xl font-serif w-full">
                   <h1 className="text-sm uppercase tracking-widest font-bold mb-6">Executive Summary</h1>
                   <p className="mb-4 leading-relaxed">
                     Apex Federal proposes a comprehensive Data Analytics Platform designed specifically for the Maryland Department of Transportation (MDOT). Our solution leverages a zero-trust architecture to ensure the highest levels of security while providing real-time insights into traffic patterns and infrastructure health.

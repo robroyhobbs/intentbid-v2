@@ -7,7 +7,8 @@ import {
   ShieldAlert,
   Palette,
   Globe,
-  Terminal
+  Terminal,
+  Plus
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 

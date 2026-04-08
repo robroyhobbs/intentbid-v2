@@ -14,6 +14,8 @@ import { ClientAccountDetail } from './pages/ClientAccountDetail';
 import { ClientPortal } from './pages/ClientPortal';
 import { Settings } from './pages/Settings';
 import ProposalWorkspace from './pages/ProposalWorkspace';
+import { IntelligenceDashboard } from './pages/IntelligenceDashboard';
+import { OpportunityMatches } from './pages/OpportunityMatches';
 
 export default function App() {
   return (
@@ -23,6 +25,9 @@ export default function App() {
           <Route index element={<ProposalsList />} />
           <Route path="proposals" element={<ProposalsList />} />
           <Route path="business-profile" element={<BusinessProfile />} />
+          <Route path="intelligence" element={<IntelligenceDashboard />} />
+          <Route path="intelligence/matches" element={<OpportunityMatches />} />
+          <Route path="intelligence/matches/:id" element={<OpportunityMatches />} />
           <Route path="foia" element={<FOIAEngine />} />
           <Route path="managed-delivery" element={<ManagedDelivery />} />
           <Route path="managed-delivery/:clientId" element={<ClientAccountDetail />} />
